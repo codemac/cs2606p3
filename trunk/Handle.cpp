@@ -1,9 +1,10 @@
 #include "Handle.h"
 
-Handle::Handle(int length, void* location)
+Handle::Handle(int length, void* location, int ID)
 {
     strLength = length;
     strLocation = location;
+    strID = ID;
 }
 
 Handle::~Handle()
@@ -22,4 +23,9 @@ void* Handle::getLocation()
 int Handle::getLength()
 {
     return strLength;
+}
+
+int Handle::getID()
+{
+    return strID;
 }
