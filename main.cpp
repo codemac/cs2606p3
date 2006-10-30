@@ -18,7 +18,7 @@
 /**
  * Project 2 for CS2606 Fall 2006
  * 
- * Programmer: joro320 @ braundui
+ * Programmer: codemac @ braundui
  * 
  * Purpose of Program: This project is to create two data structures to hold
  * information about seminars.  The coordinates are stored in a KD tree, and
