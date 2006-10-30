@@ -33,7 +33,7 @@ class BufferPool {
 			
 		}
 
-		int insert(string str, void* location);
+		int insert(string str, int* location);
 		
 		int* getNextBuffer();
 

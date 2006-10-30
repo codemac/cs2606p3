@@ -1,10 +1,10 @@
 #include "BufferPool.h"
 
-int BufferPool::insert(string str, void* location) {
+int BufferPool::insert(string str, int* location) {
 	
 }
 
-int* BufferPool::getNextBuffer(void) {
+int* BufferPool::getNextBuffer() {
 	if ( count == total ) {
 		count = 0;
 		//	reset count
