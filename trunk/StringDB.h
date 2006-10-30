@@ -1,11 +1,19 @@
 #ifndef STRINGDB_H_
 #define STRINGDB_H_
 
+#include <string>
+#include <iostream>
+#include <sstream>
+using namespace std;
+
 class StringDB
 {
+    public:
+    void parse();
     StringDB();
     ~StringDB();
-    void parse();
+    
+    private:
     void insert(int ID, string name);
     void dump();
     void remove(int ID);
@@ -46,6 +54,7 @@ void StringDB::parse()
         {
             cin >> ID;
             getline(cin, line);
+            getline(cin, line);
             name = line;
             unsigned int index = line.find_first_of(letters,0);
             while(index != string::npos)
@@ -65,15 +74,17 @@ void StringDB::parse()
 
 void StringDB::insert(int ID, string name)
 {
-    
+    cout << "INSERT" << endl;
 }
 
 void StringDB::remove(int ID)
 {
-    
+    cout << "REMOVE" << endl;
 }
 
 void StringDB::dump()
 {
-    
+    cout << "DUMP" << endl;
 }
+
+#endif //STRINGDB_H_
