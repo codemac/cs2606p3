@@ -2,6 +2,7 @@
 #define STRINGDB_H_
 
 using namespace std;
+#include "MemoryManager.h"
 
 class StringDB
 {

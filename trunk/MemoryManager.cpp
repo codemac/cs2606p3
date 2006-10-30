@@ -1,3 +1,6 @@
 #include "MemoryManager.h"
 
-MemoryManager::MemoryManager(
+MemoryManager::MemoryManager(int ID, string name)
+{
+    
+}
