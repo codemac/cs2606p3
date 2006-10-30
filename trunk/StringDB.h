@@ -15,5 +15,6 @@ class StringDB
     void insert(int ID, string name);
     void dump();
     void remove(int ID);
+    void print(int ID);
 };
 #endif //STRINGDB_H_

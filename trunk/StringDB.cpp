@@ -21,6 +21,11 @@ void StringDB::parse()
     {
         cin >> name;
         cout << "Command:" << name << endl;
+        if(name == "print")
+        {
+            cin >> ID;
+            print(ID);
+        }
         if(name == "dump")
         {
             dump();
@@ -66,4 +71,9 @@ void StringDB::remove(int ID)
 void StringDB::dump()
 {
     cout << "DUMP" << endl;
+}
+
+void StringDB::print(int ID)
+{
+    cout << "PRINT" << endl;
 }

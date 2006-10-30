@@ -8,7 +8,10 @@ Handle::Handle(int length, void* location)
 
 Handle::~Handle()
 {
-    
+    if(strLocation != 0)
+    {
+        delete strLocation;
+    }
 }
 
 void* Handle::getLocation()
