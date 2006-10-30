@@ -19,8 +19,8 @@ class BufferPool {
 	public:
 		BufferPool() {}
 		BufferPool(string theFile, int numBuffs) {
-			stream = fstream(theFile, ios::binary | ios::out | ios::in);
-			memory = new char[numBuffs][BLOCKSIZE];
+			//stream = fstream(theFile, ios::binary | ios::out | ios::in);
+			//memory = new char[numBuffs][BLOCKSIZE];
 			total = numBuffs;
 			current = 0;
 		}
