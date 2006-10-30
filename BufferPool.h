@@ -13,15 +13,24 @@ using namespace std;
 class BufferPool {
 	private:
 		fstream stream;
+		int current;
+		int total;
 		char*** memory;
 	public:
-		BufferPool();
+		BufferPool() {}
 		BufferPool(string theFile, int numBuffs) {
 			stream = fstream(theFile, ios::binary | ios::out | ios::in);
 			memory = new char[numBuffs][BLOCKSIZE];
+			total = numBuffs;
+			current = 0;
 		}
-
+		~BufferPool() {
+			
+		}
 		int insert(string str, void* location);
+		
+		void* getNextBuffer();
+
 
 };
 #endif
