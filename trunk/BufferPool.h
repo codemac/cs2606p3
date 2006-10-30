@@ -15,12 +15,12 @@ class BufferPool {
 		fstream stream;
 		int current;
 		int total;
-		char**[512] memory;
+		//char**[BLOCKSIZE] memory;
 	public:
 		BufferPool() {}
 		BufferPool(string theFile, int numBuffs) {
 			//stream = fstream(theFile, ios::binary | ios::out | ios::in);
-			memory = new char[numBuffs][BLOCKSIZE];
+			//memory = new char[numBuffs][BLOCKSIZE];
 			total = numBuffs;
 			current = 0;
 		}
