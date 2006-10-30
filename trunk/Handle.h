@@ -4,17 +4,17 @@
 Class Handle
 {
     public:
-    Handle(int length, int location);
+    Handle(int length, void* location);
     ~Handle();
-    int getLocation();
+    void* getLocation();
     int getLength();
     
     private:
     int strLength;
-    int strLocation;
+    void* strLocation;
 };
 
-Handle::Handle(int length, int location)
+Handle::Handle(int length, void* location)
 {
     strLength = length;
     strLocation = location;
@@ -25,7 +25,7 @@ Handle::~Handle()
     
 }
 
-int Handle::getLocation()
+void* Handle::getLocation()
 {
     return strLocation;
 }
