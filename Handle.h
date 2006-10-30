@@ -1,7 +1,7 @@
 #ifndef HANDLE_H_
 #define HANDLE_H_
 
-Class Handle
+class Handle
 {
     public:
     Handle(int length, void* location);
@@ -32,7 +32,7 @@ void* Handle::getLocation()
 
 int Handle::getLength()
 {
-    return strLength();
+    return strLength;
 }
 
 #endif //HANDLE_H_
