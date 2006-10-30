@@ -21,7 +21,7 @@ class BufferPool {
 			memory = new char[numBuffs][BLOCKSIZE];
 		}
 
-		int insert(string str, int id, void* location);
+		int insert(string str, void* location);
 
 };
 #endif
