@@ -1,9 +1,6 @@
 #ifndef STRINGDB_H_
 #define STRINGDB_H_
 
-#include <string>
-#include <iostream>
-#include <sstream>
 using namespace std;
 
 class StringDB
