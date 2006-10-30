@@ -15,7 +15,7 @@ class BufferPool {
 		fstream stream;
 		int current;
 		int total;
-		char*** memory;
+		char**[512] memory;
 	public:
 		BufferPool() {}
 		BufferPool(string theFile, int numBuffs) {
