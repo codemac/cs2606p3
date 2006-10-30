@@ -16,8 +16,13 @@ class BufferPool {
 		int current;
 		int total;
 		//char**[BLOCKSIZE] memory;
+		char*** memory;
 	public:
-		BufferPool() {}
+		BufferPool() {
+			total = 0;
+			current = 0;
+			memory = 0;
+		}
 		BufferPool(string theFile, int numBuffs) {
 			//stream = fstream(theFile, ios::binary | ios::out | ios::in);
 			//memory = new char[numBuffs][BLOCKSIZE];
@@ -27,9 +32,10 @@ class BufferPool {
 		~BufferPool() {
 			
 		}
+
 		int insert(string str, void* location);
 		
-		void* getNextBuffer();
+		int* getNextBuffer();
 
 
 };
