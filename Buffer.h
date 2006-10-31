@@ -3,6 +3,8 @@
 
 #include <cstring>
 
+using namespace std;
+
 class Buffer {
 	private:
 		char* buffer;
@@ -16,8 +18,9 @@ class Buffer {
 			dirty = false;
 		}
 
-		bool write(char* str, int block);
+		int write(char* str, int block);
 		char* read(int block, int length);
 		bool isDirty();
+		bool inRange( int block );
 };
 #endif
