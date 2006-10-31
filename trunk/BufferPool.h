@@ -22,7 +22,7 @@ class BufferPool {
 		BufferPool() {
 			total = 0;
 			current = 0;
-			//memory = 0;
+			memory = 0;
 		}
 		BufferPool(string theFile, int numBuffs) {
 			//stream = fstream(theFile.c_str(), ios::binary | ios::out | ios::in);
@@ -34,7 +34,7 @@ class BufferPool {
 		}
 
 		int write(char* towrite, int fileOffset);
-		int read(char* tostore, int fileOffset);
+		bool read(char* tostore, int fileOffset, int length);
 		
 };
 #endif

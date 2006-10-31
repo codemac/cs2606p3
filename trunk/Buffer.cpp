@@ -1,14 +1,10 @@
 #include "Buffer.h"
 
 
-bool Buffer::write(char* str, int block) {
-	if ((block > startBlock + BLOCKSIZE) || (block < startBlock))
-		return false;
-	else {
-		strcpy(buffer+(block - startBlock),str);
-		dirty = true;
-		return true;
-	}
+int Buffer::write(char* str, int block) {
+	strcpy(buffer+(block - startBlock),str);
+	dirty = true;
+	return startBlock+block;
 }
 
 char* Buffer::read(int block, int length) {
@@ -19,4 +15,8 @@ char* Buffer::read(int block, int length) {
 
 bool Buffer::isDirty() {
 	return dirty;
+}
+
+bool Buffer::inRange( int block ) {
+	return ( (block <= startBlock + BLOCKSIZE) || (block >= startBlock));
 }
