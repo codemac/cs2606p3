@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <stdio.h>
+#include <list.h>
 using namespace std;
 
 class MemoryManager
