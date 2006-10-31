@@ -18,10 +18,10 @@ class MemoryManager
     ~MemoryManager();
     Handle insert(int ID, string name);
     void release(Handle handle);
-    int get(void* space, Handle handle);
+    char* get(Handle handle);
     
     private:
-    Handle handler[1000];
+    Handle* handler[1000];
     
 };
 #endif //MEMORYMANAGER_H_

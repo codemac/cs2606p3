@@ -7,7 +7,7 @@ MemoryManager::MemoryManager()
 
 MemoryManager::~MemoryManager()
 {
-    
+    delete handler;
 }
 
 Handle MemoryManager::insert(int ID, string name)
@@ -20,12 +20,19 @@ Handle MemoryManager::insert(int ID, string name)
     strcpy(final+sizeof(int), description);
     //search the linked list and add it in.
     
-    
 }
 
 void MemoryManager::release(Handle handle)
 {
     int ID = handle.getID();
-    //handler[ID] = ;
-    
+    handler[ID] = NULL;
+}
+
+char* MemoryManager::get(Handle handle)
+{
+    int length = handle.length();
+    int location = handle.location();
+    char* description = new char[length]
+    buffer.read(description, location, length);
+    return description;
 }
