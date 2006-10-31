@@ -1,6 +1,6 @@
 #include "Handle.h"
 
-Handle::Handle(int length, void* location, int ID)
+Handle::Handle(int length, int location, int ID)
 {
     strLength = length;
     strLocation = location;
@@ -9,13 +9,9 @@ Handle::Handle(int length, void* location, int ID)
 
 Handle::~Handle()
 {
-    if(strLocation != 0)
-    {
-        delete strLocation;
-    }
 }
 
-void* Handle::getLocation()
+int Handle::getLocation()
 {
     return strLocation;
 }

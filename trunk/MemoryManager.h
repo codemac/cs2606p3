@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdio.h>
-#include <list.h>
+#include <list>
 using namespace std;
 
 class MemoryManager
@@ -21,7 +21,7 @@ class MemoryManager
     int get(void* space, Handle handle);
     
     private:
-    int handler[1000];
+    Handle handler[1000];
     
 };
 #endif //MEMORYMANAGER_H_
