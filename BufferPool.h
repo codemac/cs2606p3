@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include "Handle.h"
+#include "Buffer.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ class BufferPool {
 		//fstream stream;
 		int current;
 		int total;
-		//char** memory;
+		Buffer** memory;
 		
 
 	public:
@@ -25,13 +26,13 @@ class BufferPool {
 		}
 		BufferPool(string theFile, int numBuffs) {
 			//stream = fstream(theFile.c_str(), ios::binary | ios::out | ios::in);
-			//memory = new char[numBuffs][BLOCKSIZE];
+			memory = new Buffer*[numBuffs];
 			total = numBuffs;
 			current = 0;
 		}
 		~BufferPool() {
-			
 		}
+
 		int write(char* towrite, int fileOffset);
 		int read(char* tostore, int fileOffset);
 		
