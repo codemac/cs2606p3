@@ -7,6 +7,13 @@ Handle::Handle(int length, int location, int ID)
     strID = ID;
 }
 
+Handle::Handle()
+{
+    strLength = 0;
+    strLocation = 0;
+    strID = 0;
+}
+
 Handle::~Handle()
 {
 }
