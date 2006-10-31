@@ -26,6 +26,6 @@ Handle MemoryManager::insert(int ID, string name)
 void MemoryManager::release(Handle handle)
 {
     int ID = handle.getID();
-    int length = handle.getLength();
+    //handler[ID] = ;
     
 }
