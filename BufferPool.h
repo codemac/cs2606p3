@@ -6,25 +6,25 @@
 #include <fstream>
 #include "Handle.h"
 
-#define BLOCKSIZE 512
-
 using namespace std;
 
 class BufferPool {
 	private:
-		fstream stream;
+		const static int BLOCKSIZE = 512;
+		//fstream stream;
 		int current;
 		int total;
-		//char**[BLOCKSIZE] memory;
-		char*** memory;
+		//char** memory;
+		
+
 	public:
 		BufferPool() {
 			total = 0;
 			current = 0;
-			memory = 0;
+			//memory = 0;
 		}
 		BufferPool(string theFile, int numBuffs) {
-			//stream = fstream(theFile, ios::binary | ios::out | ios::in);
+			//stream = fstream(theFile.c_str(), ios::binary | ios::out | ios::in);
 			//memory = new char[numBuffs][BLOCKSIZE];
 			total = numBuffs;
 			current = 0;
@@ -32,11 +32,8 @@ class BufferPool {
 		~BufferPool() {
 			
 		}
-
-		int insert(string str, int* location);
+		int write(char* towrite, int fileOffset);
+		int read(char* tostore, int fileOffset);
 		
-		int* getNextBuffer();
-
-
 };
 #endif
