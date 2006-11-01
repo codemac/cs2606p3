@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <string>
 #include <fstream>
+#include <sys/stat.h>
 #include "Handle.h"
 #include "Buffer.h"
 
@@ -12,11 +13,13 @@ using namespace std;
 class BufferPool {
 	private:
 		const static int BLOCKSIZE = 512;
-		//fstream stream;
+		fstream stream;
+		string filename;
 		int current;
 		int total;
 		Buffer** memory;
 		
+		void rotateCleanNew(int offset);
 
 	public:
 		BufferPool() {
@@ -25,7 +28,8 @@ class BufferPool {
 			memory = 0;
 		}
 		BufferPool(string theFile, int numBuffs) {
-			//stream = fstream(theFile.c_str(), ios::binary | ios::out | ios::in);
+			stream.open(theFile.c_str(), ios::binary | ios::out | ios::in);
+			filename = theFile;
 			memory = new Buffer*[numBuffs];
 			total = numBuffs;
 			current = 0;
@@ -35,6 +39,5 @@ class BufferPool {
 
 		int write(char* towrite, int fileOffset);
 		bool read(char* tostore, int fileOffset, int length);
-		
 };
 #endif
