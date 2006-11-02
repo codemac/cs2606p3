@@ -41,24 +41,27 @@ void StringDB::parse()
         }
         else if(name == "insert")
         {
-            string lines, line;
+			string lines, line;
 			string word;
-
+			
 			cin >> ID;
-            getline(cin, line);
+			getline(cin, line);
 			
 			bool ok = true;
 			while(ok) {
-
+				line = "";
+				word = "";
 				getline(cin, line);
 				istringstream inn(line);
 				inn >> word;
-				if ( word.length() > 1 ) {
-					lines += line;
+				cout << "Getting words..." << endl;
+				if ( word.length() > 0 ) {
+					cout << "Adding Line..." << word << endl;
+					lines = lines + line + "\n";
 				}
 				else {
-					insert(ID, lines);
-					ok = false;
+					lines.erase(lines.length()-1);
+					insert(ID,lines);
 				}
 			}
         }
