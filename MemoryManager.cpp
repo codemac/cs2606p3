@@ -28,11 +28,13 @@ Handle* MemoryManager::insert(int ID, string name)
     char* final = new char[strlen(description) + sizeof(int) + 1];
     memcpy(final, &size, sizeof(int));
     strcpy(final+sizeof(int), description);
+    cout << "FINAL SIZE" << strlen(final) << endl;
     Handle* bestFit = NULL;
     Handle* handle;
     list<Handle*>::iterator iter = freeList.begin();
     while(iter != freeList.end())
     {
+        cout << "bad boy" << endl;
         handle = *iter;
         if (bestFit != NULL)
         {
@@ -53,15 +55,16 @@ Handle* MemoryManager::insert(int ID, string name)
     int location;
     if (bestFit == NULL)
     {
-        location = fileLoc;
-        handle = new Handle(strlen(final), location, ID);
+        handle = new Handle(strlen(final), fileLoc, ID);
         handler[ID] = handle;
-        insertHelper(final, location);
+        insertHelper(final, fileLoc);
         fileLoc = fileLoc + strlen(final);
 		cout << "strlen(final" << strlen(final) << "fileloc" <<fileLoc << endl;
+        cout << fileLoc << endl;
     }
     else
     {
+        cout << "shouldn't be here" << endl;
         location = bestFit->getLocation();
         handle = new Handle(strlen(final), location, ID);
         handler[ID] = handle;
