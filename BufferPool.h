@@ -2,6 +2,7 @@
 #define BUFFERPOOL_H
 
 #include <cstdio>
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <sys/stat.h>

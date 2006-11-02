@@ -2,8 +2,11 @@
 
 
 int Buffer::write(char* str, int block) {
+    cout << "A" << endl;
 	strcpy(buffer+(block - startBlock),str);
+    cout << "B" << endl;
 	dirty = true;
+    cout << "C" << endl;
 	return BLOCKSIZE - block - strlen(str);
 }
 
@@ -26,5 +29,6 @@ int Buffer::block() {
 }
 
 bool Buffer::inRange( int block ) {
-	return ( (block <= startBlock + BLOCKSIZE) || (block >= startBlock));
+    bool range = ( (block <= startBlock + BLOCKSIZE) || (block >= startBlock));
+	return range;
 }

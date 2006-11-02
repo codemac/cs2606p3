@@ -2,6 +2,7 @@
 #define BUFFER_H
 
 #include <cstring>
+#include <iostream>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ class Buffer {
 	public:
 		Buffer() {
 			buffer = new char[BLOCKSIZE];
+            memset(buffer, ' ', BLOCKSIZE);
 			startBlock = 0;
 			dirty = false;
 		}

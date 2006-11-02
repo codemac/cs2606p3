@@ -40,7 +40,8 @@ int main(int argc, char* argv[])
 		std::cout << "You need 2 arguments, file name and then the number of buffers used to store them.  You fail." << std::endl;
 		return 1;
 	}*/
-	StringDB bob/*(argv[0], atoi(argv[1]))*/;
+	//StringDB bob(argv[0], atoi(argv[1]));
+    StringDB bob("output.txt", 5);
 	bob.parse();
 	return 0;
 }
