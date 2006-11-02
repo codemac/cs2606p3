@@ -67,7 +67,7 @@ void BufferPool::rotateCleanNew(int offset) {
 }
 
 void BufferPool::init(char* theFile, int numBuffs) {
-	stream.open(theFile.c_str(), ios::binary | ios::out | ios::in);
+	stream.open(theFile, ios::binary | ios::out | ios::in);
 	filename = theFile;
 	memory = new Buffer*[numBuffs];
 	total = numBuffs;
