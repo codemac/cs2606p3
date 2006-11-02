@@ -57,7 +57,8 @@ Handle* MemoryManager::insert(int ID, string name)
         handle = new Handle(strlen(final), location, ID);
         handler[ID] = handle;
         insertHelper(final, location);
-        fileLoc += strlen(final);
+        fileLoc = fileLoc + strlen(final);
+		cout << "strlen(final" << strlen(final) << "fileloc" <<fileLoc << endl;
     }
     else
     {
