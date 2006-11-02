@@ -57,7 +57,6 @@ void StringDB::parse()
 					lines += line;
 				}
 				else {
-                    cout << lines << endl;
 					insert(ID, lines);
 					ok = false;
 				}
