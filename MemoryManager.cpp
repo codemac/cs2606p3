@@ -23,11 +23,13 @@ Handle* MemoryManager::insert(int ID, string name)
 {
     release(ID);
     int size = name.size();
-    char* description = new char[name.size()+1];
+    char* description = new char[size];
     strcpy(description, name.c_str());
-    char* final = new char[strlen(description) + sizeof(int) + 1];
-    memcpy(final, &size, sizeof(int));
-    strcpy(final+sizeof(int), description);
+    char* final = new char[11];
+    cout << "ohreally?" << strlen(final) << endl;
+    memcpy(final, &size, 4);
+    cout << "number " << strlen(final) << " oh " << final << endl;
+    strcpy(&(final[4]), description);
     cout << "FINAL SIZE" << strlen(final) << endl;
     Handle* bestFit = NULL;
     Handle* handle;
@@ -59,7 +61,7 @@ Handle* MemoryManager::insert(int ID, string name)
         handler[ID] = handle;
         insertHelper(final, fileLoc);
         fileLoc = fileLoc + strlen(final);
-		cout << "strlen(final" << strlen(final) << "fileloc" <<fileLoc << endl;
+		cout << "strlen(final) " << strlen(final) << " fileloc " <<fileLoc << endl;
         cout << fileLoc << endl;
     }
     else
