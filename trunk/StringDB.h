@@ -9,6 +9,7 @@ class StringDB
     public:
     void parse();
     StringDB(char* file, int buffernumber);
+    StringDB();
     ~StringDB();
     
     private:

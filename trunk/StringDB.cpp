@@ -5,6 +5,11 @@ StringDB::StringDB(char* a, int b)
 	memory.init(a, b);
 }
 
+StringDB::StringDB()
+{
+    
+}
+
 StringDB::~StringDB()
 {
     
@@ -52,6 +57,7 @@ void StringDB::parse()
 					lines += line;
 				}
 				else {
+                    cout << lines << endl;
 					insert(ID, lines);
 					ok = false;
 				}
@@ -66,7 +72,7 @@ void StringDB::parse()
 
 void StringDB::insert(int ID, string name)
 {
-	memory.insert(ID,name);
+	memory.insert(ID, name);
 }
 
 void StringDB::remove(int ID)
@@ -76,10 +82,10 @@ void StringDB::remove(int ID)
 
 void StringDB::dump()
 {
-	//memory.dump();
+	memory.dump();
 }
 
 void StringDB::print(int ID)
 {
-	//memory.print(ID);
+	memory.print(ID);
 }
