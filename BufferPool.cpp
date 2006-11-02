@@ -4,6 +4,8 @@
 int BufferPool::write(char* towrite, int fileOffset) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
+			cout << "memory[i]: " << memory[i] << endl;
+			cout << "memory[i]->block(): " << memory[i]->block() << endl;
 			int i = memory[i]->write(towrite, fileOffset);
             cout << "erroneous" << endl;
             return i;
@@ -43,6 +45,7 @@ void BufferPool::rotateCleanNew(int offset) {
 		if ( lastbuf != 0) {
 		  stream.seekp(lastbuf->block());
 		  stream.write(lastbuf->read(), BLOCKSIZE);
+		  stream.flush();
 		  delete lastbuf;
 		}
 		int bufferedOffset = (offset / BLOCKSIZE)*BLOCKSIZE;
@@ -55,6 +58,7 @@ void BufferPool::rotateCleanNew(int offset) {
 				char* str = new char[BLOCKSIZE];
 				memset(str, ' ', BLOCKSIZE);
 				stream.write(str, strlen(str));
+				stream.flush();
 				delete[] str;
 			}
 		}

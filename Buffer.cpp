@@ -2,11 +2,8 @@
 
 
 int Buffer::write(char* str, int block) {
-    cout << "A" << endl;
 	strcpy(buffer+(block - startBlock),str);
-    cout << "B" << endl;
 	dirty = true;
-    cout << "C" << endl;
 	return BLOCKSIZE - block - strlen(str);
 }
 
