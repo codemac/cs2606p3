@@ -8,10 +8,12 @@ class StringDB
 {
     public:
     void parse();
-    StringDB();
+    StringDB(const char* file, int buffernumber);
     ~StringDB();
     
     private:
+	MemoryManager memory;
+
     void insert(int ID, string name);
     void dump();
     void remove(int ID);
