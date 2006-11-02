@@ -83,18 +83,26 @@ void MemoryManager::release(int ID)
     Handle* handle = handler[ID];
     if (handle != NULL)
     {
-        freeList.push_back(handle);
+        merge(handle);
     }
     handler[ID] = NULL;
 }
 
-char* MemoryManager::get(Handle handle)
+char* MemoryManager::get(Handle* handle)
 {
-    int length = handle.getLength();
-    int location = handle.getLocation();
-    char* description = new char[length];
-    buffer.read(description, location, length);
-    return description;
+    if(handle != NULL)
+    {
+        int length = handle->getLength();
+        int location = handle->getLocation();
+        char* description = new char[length];
+        buffer.read(description, location, length);
+        return description;
+    }
+    else
+    {
+        char* temp;
+        return temp;
+    }
 }
 
 void MemoryManager::insertHelper(char* description, unsigned int location)
@@ -147,5 +155,34 @@ void MemoryManager::print(int ID)
     else
     {
         cout << "No such ID found" << endl;
+    }
+}
+
+void MemoryManager::merge(Handle* handle)
+{
+    Handle* temp;
+    Handle* merged = handle;
+    list<Handle*>::iterator iter = freeList.begin();
+    while(iter != freeList.end())
+    {
+        temp = *iter;
+        if(handle->getLocation() + handle->getLength() == temp->getLocation())
+        {
+            merged = new Handle(handle->getLength() + temp->getLength(), handle->getLocation(), 0);
+            freeList.remove(temp);
+        }
+        else if(temp->getLocation() + temp->getLength() == handle->getLocation())
+        {
+            merged = new Handle(temp->getLength() + handle->getLength(), temp->getLocation(), 0);
+            freeList.remove(temp);
+        }
+    }
+    if (handle->getLocation() + handle->getLength() == fileLoc)
+    {
+        fileLoc = fileLoc - handle->getLength();
+    }
+    else
+    {
+        freeList.push_back(merged);
     }
 }
