@@ -29,7 +29,7 @@ void StringDB::parse()
             cin >> ID;
             print(ID);
         }
-        if(name == "dump")
+        else if(name == "dump")
         {
             dump();
         }

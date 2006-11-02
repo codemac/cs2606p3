@@ -4,8 +4,7 @@
 int BufferPool::write(char* towrite, int fileOffset) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
-			cout << "memory[i]: " << memory[i] << endl;
-			cout << "memory[i]->block(): " << memory[i]->block() << endl;
+            cout << "memory[i]->block()" << memory[i]->block() << endl;
 			int i = memory[i]->write(towrite, fileOffset);
             cout << "erroneous" << endl;
             return i;
