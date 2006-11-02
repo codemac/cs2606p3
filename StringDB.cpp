@@ -55,7 +55,7 @@ void StringDB::parse()
 				istringstream inn(line);
 				inn >> word;
 				cout << "Getting words..." << endl;
-				if ( word.length() > 1 ) {
+				if ( word.length() > 0 ) {
 					cout << "Adding Line..." << word << endl;
 					lines = lines + line + "\n";
 				}

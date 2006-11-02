@@ -102,7 +102,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
 {
     if (strlen(description) + location%BLOCKSIZE <= BLOCKSIZE)
     {
-        buffer.write(description, location);
+        buffer.write(description, location, strlen(description));
     }
     else
     {
@@ -112,7 +112,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
         memcpy(tempDesc, description, BLOCKSIZE - (location%BLOCKSIZE));
         size = size - (BLOCKSIZE - (location%BLOCKSIZE));
         memcpy(temp, description + (BLOCKSIZE - (location%BLOCKSIZE)), size);
-        buffer.write(tempDesc, BLOCKSIZE - (location%BLOCKSIZE));
+        buffer.write(tempDesc, BLOCKSIZE - (location%BLOCKSIZE), BLOCKSIZE - (location%BLOCKSIZE));
         insertHelper(temp, location + (BLOCKSIZE - (location%BLOCKSIZE)));
     }
 }
@@ -142,7 +142,7 @@ void MemoryManager::print(int ID)
     {
         char* printString = new char[handle->getLength()];
         cout << "LENGTH: " << handle->getLength() << " LOCATION: " << handle->getLocation() << endl;
-        buffer.read(printString, handle->getLocation(), handle->getLength());
+        buffer.read(printString, handle->getLocation()+sizeof(int), handle->getLength()-sizeof(int));
         cout << "ID: " << ID << endl;
         cout << printString << endl;
     }

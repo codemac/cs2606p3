@@ -4,9 +4,7 @@
 int BufferPool::write(char* towrite, int fileOffset) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
-            cout << "memory[i]->block()" << memory[i]->block() << endl;
 			int i = memory[i]->write(towrite, fileOffset);
-            cout << "erroneous" << endl;
             return i;
 		}
 	}
@@ -19,6 +17,7 @@ int BufferPool::write(char* towrite, int fileOffset) {
 bool BufferPool::read(char* toread, int fileOffset, int length) {
 	for( int i = 0; i < total; i++) {
 		if ( memory[i]->inRange(fileOffset)) {
+            cout << "OFFSET: " << fileOffset << " LENGTH: " << length << endl;
 			memcpy(toread, memory[i]->read(fileOffset, length), length);
 			return true;
 		}
@@ -32,7 +31,6 @@ bool BufferPool::read(char* toread, int fileOffset, int length) {
 }
 
 void BufferPool::rotateCleanNew(int offset) {
-    cout << "PENIS" << endl;
     if ( total > 0 ) {
 		Buffer* lastbuf = memory[0];
 		Buffer* nextbuf = 0;
