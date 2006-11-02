@@ -65,3 +65,11 @@ void BufferPool::rotateCleanNew(int offset) {
 		delete[] toRead;
 	}
 }
+
+void BufferPool::init(char* theFile, int numBuffs) {
+	stream.open(theFile.c_str(), ios::binary | ios::out | ios::in);
+	filename = theFile;
+	memory = new Buffer*[numBuffs];
+	total = numBuffs;
+	current = 0;
+}

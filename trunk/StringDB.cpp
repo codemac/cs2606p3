@@ -1,8 +1,8 @@
 #include "StringDB.h"
 
-StringDB::StringDB()
+StringDB::StringDB(const char* a, int b)
 {
-    
+	memory.init(a, b);
 }
 
 StringDB::~StringDB()
@@ -12,10 +12,7 @@ StringDB::~StringDB()
 
 void StringDB::parse()
 {
-    string line;
-    string name;
     int ID;
-    string letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     cout << "Start commands" << endl;
     while(cin)
     {
@@ -38,18 +35,26 @@ void StringDB::parse()
         }
         else if(name == "insert")
         {
-            cin >> ID;
+            string lines, line;
+			string word;
+
+			cin >> ID;
             getline(cin, line);
-            getline(cin, line);
-            name = line;
-            unsigned int index = line.find_first_of(letters,0);
-            while(index != string::npos)
-            {
-                getline(cin, line);
-                index = line.find_first_of(letters,0);
-                name += line;
-            }
-            insert(ID, name);
+			
+			bool ok = true;
+			while(ok) {
+
+				getline(cin, line);
+				istringstream inn(line);
+				inn >> word;
+				if ( word.length() > 1 ) {
+					lines += line;
+				}
+				else {
+					insert(ID, lines);
+					ok = false;
+				}
+			}
         }
         else
         {
@@ -60,20 +65,20 @@ void StringDB::parse()
 
 void StringDB::insert(int ID, string name)
 {
-    cout << "INSERT" << endl;
+	memory.insert(ID,name);
 }
 
 void StringDB::remove(int ID)
 {
-    cout << "REMOVE" << endl;
+	memory.remove(ID);
 }
 
 void StringDB::dump()
 {
-    cout << "DUMP" << endl;
+	memory.dump();
 }
 
 void StringDB::print(int ID)
 {
-    cout << "PRINT" << endl;
+	memory.print(ID);
 }

@@ -16,7 +16,7 @@
 // neither the spirit nor letter of this restriction.
  
 /**
- * Project 2 for CS2606 Fall 2006
+ * Project 3 for CS2606 Fall 2006
  * 
  * Programmer: codemac @ braundui
  * 
@@ -26,14 +26,20 @@
  * 
  * OS: Windows XP 
  * Compiler: Eclipse
- * Date of Completion: October 08, 2006
+ * Date of Completion: November 02, 2006
  */
 
+#include <iostream>
+#include <cstdlib>
 #include "StringDB.h"
 
-int main(int argc, char argv[])
+int main(int argc, char* argv[])
 {
-	StringDB bob;
+	if( argc != 2 ) {
+		std::cout << "You need 2 arguments, file name and then the number of buffers used to store them.  You fail." << std::endl;
+		return 1;
+	}
+	StringDB bob(argv[0], atoi(argv[1]));
 	bob.parse();
 	return 0;
 }
