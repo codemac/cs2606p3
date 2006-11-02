@@ -33,4 +33,7 @@
 
 int main(int argc, char argv[])
 {
+	StringDB bob;
+	bob.parse();
+	return 0;
 }
