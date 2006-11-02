@@ -15,7 +15,7 @@ MemoryManager::~MemoryManager()
     delete handler;
 }
 
-Handle MemoryManager::insert(int ID, string name)
+Handle* MemoryManager::insert(int ID, string name)
 {
     int size = name.size();
     char* description = new char[name.size()+1];
@@ -27,14 +27,12 @@ Handle MemoryManager::insert(int ID, string name)
     Handle* bestFit = NULL;
     Handle* handle;
     list<Handle*>::iterator iter = freeList.begin();
-    list<Handle*>::iterator pos;
     if(iter != NULL)
     {
         handle = *iter;
         if (handle->getLength() > strlen(description))
         {
             bestFit = *iter;
-            pos = iter;
         }
     }
     while(iter++ != freeList.end())
@@ -45,14 +43,12 @@ Handle MemoryManager::insert(int ID, string name)
             if (handle->getLength() > strlen(description) && handle->getLength() < bestFit->getLength())
             {
                 bestFit = handle;
-                pos = iter;
             }
         }
         else
         {
             if (handle->getLength() > strlen(description))
             {
-                pos = iter;
                 bestFit = handle;
             }
         }
@@ -60,18 +56,21 @@ Handle MemoryManager::insert(int ID, string name)
     int location;
     if (bestFit == NULL)
     {
-        location = insertHelper(final);
+        location = fileLoc;
         handle = new Handle(strlen(final), location, ID);
         handler[ID] = handle;
+        insertHelper(final, location);
+        fileLoc += strlen(final);
     }
     else
     {
         location = bestFit->getLocation();
         handle = new Handle(strlen(final), location, ID);
         handler[ID] = handle;
-        buffer.write(final, location);
+        insertHelper(final, location);
         freeList.remove(bestFit);
     }
+    return handle;
 }
 
 void MemoryManager::release(int ID)
@@ -90,7 +89,31 @@ char* MemoryManager::get(Handle handle)
     return description;
 }
 
-int MemoryManager::insertHelper(char* description)
+void MemoryManager::insertHelper(char* description, unsigned int location)
 {
-
+    if (strlen(description) + location%BLOCKSIZE <= BLOCKSIZE)
+    {
+        buffer.write(description, location);
+    }
+    else
+    {
+        char* temp = description;
+        int size = strlen(description);
+        int tempLoc = location;
+        while(size + tempLoc%BLOCKSIZE > BLOCKSIZE)
+        {
+            char* tempDesc = new char[BLOCKSIZE - (tempLoc%BLOCKSIZE)];
+            if (size > BLOCKSIZE - (tempLoc%BLOCKSIZE))
+            {
+                memcpy(tempDesc, description, BLOCKSIZE - (tempLoc%BLOCKSIZE)];
+                size = size - (BLOCKSIZE - (tempLoc%BLOCKSIZE));
+                tempLoc = 0;
+            }
+            else
+            {
+                
+            }
+            
+        }
+    }
 }

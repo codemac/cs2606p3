@@ -18,13 +18,13 @@ class MemoryManager
     MemoryManager();
     ~MemoryManager();
     void init(char* fileLocation, int numBuffers);
-    Handle insert(int ID, string name);
+    Handle* insert(int ID, string name);
     void release(int ID);
     char* get(Handle handle);
     
     private:
-    const static int BLOCKSIZE = 512;
-    int insertHelper(char* description);
+    const static unsigned int BLOCKSIZE = 512;
+    void insertHelper(char* description, unsigned int location);
     Handle* handler[1000];
     BufferPool buffer;
     int fileLoc;
