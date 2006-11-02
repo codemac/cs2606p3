@@ -27,8 +27,8 @@ class BufferPool {
 			current = 0;
 			memory = 0;
 		}
-		BufferPool(string theFile, int numBuffs) {
-			stream.open(theFile.c_str(), ios::binary | ios::out | ios::in);
+		BufferPool(char* theFile, int numBuffs) {
+			stream.open(theFile, ios::binary | ios::out | ios::in);
 			filename = theFile;
 			memory = new Buffer*[numBuffs];
 			total = numBuffs;
