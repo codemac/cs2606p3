@@ -5,7 +5,6 @@ class Handle
 {
     public:
     Handle(int length, int location, int ID);
-    Handle();
     ~Handle();
     int getLocation();
     int getLength();
