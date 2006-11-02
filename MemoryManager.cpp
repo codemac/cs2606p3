@@ -54,7 +54,7 @@ Handle* MemoryManager::insert(int ID, string name)
     int location;
     if (bestFit == NULL)
     {
-        handle = new Handle(strlen(final), fileLoc, ID);
+        handle = new Handle(length, fileLoc, ID);
         handler[ID] = handle;
         insertHelper(final, fileLoc);
         fileLoc = fileLoc + length;
@@ -62,7 +62,6 @@ Handle* MemoryManager::insert(int ID, string name)
     }
     else
     {
-\\
         location = bestFit->getLocation();
         handle = new Handle(length, location, ID);
         handler[ID] = handle;
