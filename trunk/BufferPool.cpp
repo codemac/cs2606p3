@@ -37,12 +37,13 @@ void BufferPool::rotateCleanNew(int offset) {
 			memory[i] = lastbuf;
 			lastbuf = nextbuf;
 		}
-
+		
+		if ( lastbuf != 0) {
 		stream.seekp(lastbuf->block());
 		stream.write(lastbuf->read(), BLOCKSIZE);
 		
 		delete lastbuf;
-		
+		}
 		int bufferedOffset = (offset / BLOCKSIZE)*BLOCKSIZE;
 		
 		memory[0] = new Buffer( bufferedOffset );
