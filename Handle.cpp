@@ -11,17 +11,17 @@ Handle::~Handle()
 {
 }
 
-int Handle::getLocation()
+unsigned int Handle::getLocation()
 {
     return strLocation;
 }
 
-int Handle::getLength()
+unsigned int Handle::getLength()
 {
     return strLength;
 }
 
-int Handle::getID()
+unsigned int Handle::getID()
 {
     return strID;
 }

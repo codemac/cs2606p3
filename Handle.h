@@ -6,13 +6,13 @@ class Handle
     public:
     Handle(int length, int location, int ID);
     ~Handle();
-    int getLocation();
-    int getLength();
-    int getID();
+    unsigned int getLocation();
+    unsigned int getLength();
+    unsigned int getID();
     
     private:
-    int strLength;
-    int strLocation;
-    int strID;
+    unsigned int strLength;
+    unsigned int strLocation;
+    unsigned int strID;
 };
 #endif //HANDLE_H_
