@@ -8,7 +8,7 @@ class StringDB
 {
     public:
     void parse();
-    StringDB(const char* file, int buffernumber);
+    StringDB(char* file, int buffernumber);
     ~StringDB();
     
     private:

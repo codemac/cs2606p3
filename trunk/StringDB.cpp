@@ -1,6 +1,6 @@
 #include "StringDB.h"
 
-StringDB::StringDB(const char* a, int b)
+StringDB::StringDB(char* a, int b)
 {
 	memory.init(a, b);
 }
@@ -12,6 +12,7 @@ StringDB::~StringDB()
 
 void StringDB::parse()
 {
+	string name;
     int ID;
     cout << "Start commands" << endl;
     while(cin)
@@ -70,15 +71,15 @@ void StringDB::insert(int ID, string name)
 
 void StringDB::remove(int ID)
 {
-	memory.remove(ID);
+	memory.release(ID);
 }
 
 void StringDB::dump()
 {
-	memory.dump();
+	//memory.dump();
 }
 
 void StringDB::print(int ID)
 {
-	memory.print(ID);
+	//memory.print(ID);
 }
