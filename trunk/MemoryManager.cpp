@@ -28,19 +28,10 @@ Handle* MemoryManager::insert(int ID, string name)
     char* final = new char[strlen(description) + sizeof(int) + 1];
     memcpy(final, &size, sizeof(int));
     strcpy(final+sizeof(int), description);
-    
     Handle* bestFit = NULL;
     Handle* handle;
     list<Handle*>::iterator iter = freeList.begin();
-    if(iter != NULL)
-    {
-        handle = *iter;
-        if (handle->getLength() > strlen(description))
-        {
-            bestFit = *iter;
-        }
-    }
-    while(iter++ != freeList.end())
+    while(iter != freeList.end())
     {
         handle = *iter;
         if (bestFit != NULL)
@@ -57,6 +48,7 @@ Handle* MemoryManager::insert(int ID, string name)
                 bestFit = handle;
             }
         }
+        iter++;
     }
     int location;
     if (bestFit == NULL)

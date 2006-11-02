@@ -2,13 +2,16 @@
 
 
 int BufferPool::write(char* towrite, int fileOffset) {
-	for( int i = 0; i < total ; i++) {
+    for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
-			return memory[i]->write(towrite, fileOffset);
+			int i = memory[i]->write(towrite, fileOffset);
+            cout << "erroneous" << endl;
+            return i;
 		}
 	}
 	rotateCleanNew(fileOffset);
-	return memory[0]->write(towrite, fileOffset);
+	int i = memory[0]->write(towrite, fileOffset);
+    return i;
 
 }
 
@@ -28,8 +31,8 @@ bool BufferPool::read(char* toread, int fileOffset, int length) {
 }
 
 void BufferPool::rotateCleanNew(int offset) {
-	if ( total > 0 ) {
-		Buffer* oldbuf = memory[total-1];
+    cout << "PENIS" << endl;
+    if ( total > 0 ) {
 		Buffer* lastbuf = memory[0];
 		Buffer* nextbuf = 0;
 		for( int i = 1; i < total; i++) {
@@ -37,12 +40,10 @@ void BufferPool::rotateCleanNew(int offset) {
 			memory[i] = lastbuf;
 			lastbuf = nextbuf;
 		}
-		
 		if ( lastbuf != 0) {
-		stream.seekp(lastbuf->block());
-		stream.write(lastbuf->read(), BLOCKSIZE);
-		
-		delete lastbuf;
+		  stream.seekp(lastbuf->block());
+		  stream.write(lastbuf->read(), BLOCKSIZE);
+		  delete lastbuf;
 		}
 		int bufferedOffset = (offset / BLOCKSIZE)*BLOCKSIZE;
 		

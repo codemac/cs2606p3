@@ -55,13 +55,14 @@ void StringDB::parse()
 				istringstream inn(line);
 				inn >> word;
 				cout << "Getting words..." << endl;
-				if ( word.length() > 0 ) {
+				if ( word.length() > 1 ) {
 					cout << "Adding Line..." << word << endl;
 					lines = lines + line + "\n";
 				}
 				else {
 					lines.erase(lines.length()-1);
 					insert(ID,lines);
+                    ok = false;
 				}
 			}
         }
