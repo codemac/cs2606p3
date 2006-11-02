@@ -24,7 +24,54 @@ Handle MemoryManager::insert(int ID, string name)
     memcpy(final, &size, sizeof(int));
     strcpy(final+sizeof(int), description);
     
-    int location = insertHelper(final);
+    Handle* bestFit = NULL;
+    Handle* handle;
+    list<Handle*>::iterator iter = freeList.begin();
+    list<Handle*>::iterator pos;
+    if(iter != NULL)
+    {
+        handle = *iter;
+        if (handle->getLength() > strlen(description))
+        {
+            bestFit = *iter;
+            pos = iter;
+        }
+    }
+    while(iter++ != freeList.end())
+    {
+        handle = *iter;
+        if (bestFit != NULL)
+        {
+            if (handle->getLength() > strlen(description) && handle->getLength() < bestFit->getLength())
+            {
+                bestFit = handle;
+                pos = iter;
+            }
+        }
+        else
+        {
+            if (handle->getLength() > strlen(description))
+            {
+                pos = iter;
+                bestFit = handle;
+            }
+        }
+    }
+    int location;
+    if (bestFit == NULL)
+    {
+        location = insertHelper(final);
+        handle = new Handle(strlen(final), location, ID);
+        handler[ID] = handle;
+    }
+    else
+    {
+        location = bestFit->getLocation();
+        handle = new Handle(strlen(final), location, ID);
+        handler[ID] = handle;
+        buffer.write(final, location);
+        freeList.remove(bestFit);
+    }
 }
 
 void MemoryManager::release(int ID)
@@ -45,12 +92,5 @@ char* MemoryManager::get(Handle handle)
 
 int MemoryManager::insertHelper(char* description)
 {
-    list::iterator iter = freeList.begin();
-    if(iter != NULL)
-    {
-        if (*iter.getLength() > strlen{description))
-        {
-            Handle bestFit = *iter;
-        }
-    }
+
 }
