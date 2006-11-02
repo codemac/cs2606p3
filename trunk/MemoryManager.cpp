@@ -101,6 +101,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
 {
     if (strlen(description) + location%BLOCKSIZE <= BLOCKSIZE)
     {
+		cout << "insertHelper-if: " << location << endl;
         buffer.write(description, location);
     }
     else
@@ -111,6 +112,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
         memcpy(tempDesc, description, BLOCKSIZE - (location%BLOCKSIZE));
         size = size - (BLOCKSIZE - (location%BLOCKSIZE));
         memcpy(temp, description + (BLOCKSIZE - (location%BLOCKSIZE)), size);
+		cout << "insertHelper-blah: " << BLOCKSIZE - (location%BLOCKSIZE) << endl;
         buffer.write(tempDesc, BLOCKSIZE - (location%BLOCKSIZE));
         insertHelper(temp, location + (BLOCKSIZE - (location%BLOCKSIZE)));
     }
