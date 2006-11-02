@@ -2,7 +2,12 @@
 
 MemoryManager::MemoryManager()
 {
-    //BufferPool buffer;
+    fileLoc = 0;
+}
+
+void MemoryManager::init(char* fileLocation, int numBuffers)
+{
+    //buffer.init(fileLocation, numBuffers);
 }
 
 MemoryManager::~MemoryManager()
@@ -18,21 +23,34 @@ Handle MemoryManager::insert(int ID, string name)
     char* final = new char[strlen(description) + sizeof(int) + 1];
     memcpy(final, &size, sizeof(int));
     strcpy(final+sizeof(int), description);
-    //search the linked list and add it in.
     
+    int location = insertHelper(final);
 }
 
-void MemoryManager::release(Handle handle)
+void MemoryManager::release(int ID)
 {
-    int ID = handle.getID();
+    Handle* handle = handler[ID];
+    freeList.push_back(handle);
     handler[ID] = NULL;
 }
 
 char* MemoryManager::get(Handle handle)
 {
-    int length = handle.length();
-    int location = handle.location();
-    char* description = new char[length]
+    int length = handle.getLength();
+    int location = handle.getLocation();
+    char* description = new char[length];
     buffer.read(description, location, length);
     return description;
+}
+
+int MemoryManager::insertHelper(char* description)
+{
+    list::iterator iter = freeList.begin();
+    if(iter != NULL)
+    {
+        if (*iter.getLength() > strlen{description))
+        {
+            Handle bestFit = *iter;
+        }
+    }
 }

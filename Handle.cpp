@@ -1,17 +1,10 @@
 #include "Handle.h"
 
-Handle::Handle(int length, int location, int ID)
+Handle::Handle(int length = 0, int location = 0, int ID = 0)
 {
     strLength = length;
     strLocation = location;
     strID = ID;
-}
-
-Handle::Handle()
-{
-    strLength = 0;
-    strLocation = 0;
-    strID = 0;
 }
 
 Handle::~Handle()
