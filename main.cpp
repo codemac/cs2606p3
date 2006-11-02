@@ -20,9 +20,10 @@
  * 
  * Programmer: codemac @ braundui
  * 
- * Purpose of Program: This project is to create two data structures to hold
- * information about seminars.  The coordinates are stored in a KD tree, and
- * the cost, keywords, date, and ID are stored in a 2,3+ tree.  
+ * Purpose of Program: This project is to create a Buffer Pool and an overriding
+ * Memory Manager to control the Buffer Pool.  The Memory Manager and Buffer
+ * Pool are designed to minimize the number of disk accesses while reading
+ * and writing to a file to improve efficiency. 
  * 
  * OS: Windows XP 
  * Compiler: Eclipse
@@ -35,11 +36,11 @@
 
 int main(int argc, char* argv[])
 {
-	if( argc != 2 ) {
+	/*if( argc != 2 ) {
 		std::cout << "You need 2 arguments, file name and then the number of buffers used to store them.  You fail." << std::endl;
 		return 1;
-	}
-	StringDB bob(argv[0], atoi(argv[1]));
+	}*/
+	StringDB bob/*(argv[0], atoi(argv[1]))*/;
 	bob.parse();
 	return 0;
 }

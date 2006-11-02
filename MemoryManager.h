@@ -21,11 +21,14 @@ class MemoryManager
     Handle* insert(int ID, string name);
     void release(int ID);
     char* get(Handle handle);
+    void dump();
+    void print(int ID);
     
     private:
     const static unsigned int BLOCKSIZE = 512;
+    const static unsigned int NUMIDS = 1000;
     void insertHelper(char* description, unsigned int location);
-    Handle* handler[1000];
+    Handle* handler[NUMIDS];
     BufferPool buffer;
     int fileLoc;
     list<Handle*> freeList;

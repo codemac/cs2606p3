@@ -3,11 +3,15 @@
 MemoryManager::MemoryManager()
 {
     fileLoc = 0;
+    for (unsigned int i = 0; i < NUMIDS; i++)
+    {
+        handler[i] = NULL;
+    }
 }
 
 void MemoryManager::init(char* fileLocation, int numBuffers)
 {
-    //buffer.init(fileLocation, numBuffers);
+    buffer.init(fileLocation, numBuffers);
 }
 
 MemoryManager::~MemoryManager()
@@ -17,6 +21,7 @@ MemoryManager::~MemoryManager()
 
 Handle* MemoryManager::insert(int ID, string name)
 {
+    release(ID);
     int size = name.size();
     char* description = new char[name.size()+1];
     strcpy(description, name.c_str());
@@ -76,7 +81,10 @@ Handle* MemoryManager::insert(int ID, string name)
 void MemoryManager::release(int ID)
 {
     Handle* handle = handler[ID];
-    freeList.push_back(handle);
+    if (handle != NULL)
+    {
+        freeList.push_back(handle);
+    }
     handler[ID] = NULL;
 }
 
@@ -97,23 +105,47 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
     }
     else
     {
-        char* temp = description;
-        int size = strlen(description);
-        int tempLoc = location;
-        while(size + tempLoc%BLOCKSIZE > BLOCKSIZE)
-        {
-            char* tempDesc = new char[BLOCKSIZE - (tempLoc%BLOCKSIZE)];
-            if (size > BLOCKSIZE - (tempLoc%BLOCKSIZE))
-            {
-                memcpy(tempDesc, description, BLOCKSIZE - (tempLoc%BLOCKSIZE)];
-                size = size - (BLOCKSIZE - (tempLoc%BLOCKSIZE));
-                tempLoc = 0;
-            }
-            else
-            {
-                
-            }
-            
-        }
+        unsigned int size = strlen(description);
+        char* temp = new char[size - (BLOCKSIZE - (location%BLOCKSIZE))];
+        char* tempDesc = new char[BLOCKSIZE - (location%BLOCKSIZE)];
+        memcpy(tempDesc, description, BLOCKSIZE - (location%BLOCKSIZE));
+        size = size - (BLOCKSIZE - (location%BLOCKSIZE));
+        memcpy(temp, description + (BLOCKSIZE - (location%BLOCKSIZE)), size);
+        buffer.write(tempDesc, BLOCKSIZE - (location%BLOCKSIZE));
+        insertHelper(temp, location + (BLOCKSIZE - (location%BLOCKSIZE)));
+    }
+}
+
+void MemoryManager::dump()
+{
+    list<Handle*>::iterator iter = freeList.begin();
+    int count = 0;
+    while(iter != freeList.end())
+    {
+        cout << "BLOCK " << count << endl;
+        Handle* handle = *iter;
+        cout << "Location: " << handle->getLocation() << " --- Size: " << handle->getLength() << endl;
+        iter++;
+        count++;
+    }
+    if (count == 0)
+    {
+        cout << "Free List is empty" << endl;
+    }
+}
+
+void MemoryManager::print(int ID)
+{
+    Handle* handle = handler[ID];
+    if (handle != NULL)
+    {
+        char* printString = new char[handle->getLength()];
+        buffer.read(printString, handle->getLocation(), handle->getLength());
+        cout << "ID: " << ID << endl;
+        cout << printString << endl;
+    }
+    else
+    {
+        cout << "No such ID found" << endl;
     }
 }
