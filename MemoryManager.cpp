@@ -25,18 +25,15 @@ Handle* MemoryManager::insert(int ID, string name)
     int size = name.size();
     char* description = new char[size];
     strcpy(description, name.c_str());
-    char* final = new char[11];
-    cout << "ohreally?" << strlen(final) << endl;
+    int length = strlen(description) + sizeof(int) + 1;
+    char* final = new char[length];
     memcpy(final, &size, 4);
-    cout << "number " << strlen(final) << " oh " << final << endl;
     strcpy(&(final[4]), description);
-    cout << "FINAL SIZE" << strlen(final) << endl;
     Handle* bestFit = NULL;
     Handle* handle;
     list<Handle*>::iterator iter = freeList.begin();
     while(iter != freeList.end())
     {
-        cout << "bad boy" << endl;
         handle = *iter;
         if (bestFit != NULL)
         {
@@ -60,15 +57,14 @@ Handle* MemoryManager::insert(int ID, string name)
         handle = new Handle(strlen(final), fileLoc, ID);
         handler[ID] = handle;
         insertHelper(final, fileLoc);
-        fileLoc = fileLoc + strlen(final);
-		cout << "strlen(final) " << strlen(final) << " fileloc " <<fileLoc << endl;
+        fileLoc = fileLoc + length;
         cout << fileLoc << endl;
     }
     else
     {
-        cout << "shouldn't be here" << endl;
+\\
         location = bestFit->getLocation();
-        handle = new Handle(strlen(final), location, ID);
+        handle = new Handle(length, location, ID);
         handler[ID] = handle;
         insertHelper(final, location);
         freeList.remove(bestFit);
@@ -107,7 +103,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
 {
     if (strlen(description) + location%BLOCKSIZE <= BLOCKSIZE)
     {
-		cout << "insertHelper-if: " << location << endl;
+\\
         buffer.write(description, location);
     }
     else
@@ -118,7 +114,7 @@ void MemoryManager::insertHelper(char* description, unsigned int location)
         memcpy(tempDesc, description, BLOCKSIZE - (location%BLOCKSIZE));
         size = size - (BLOCKSIZE - (location%BLOCKSIZE));
         memcpy(temp, description + (BLOCKSIZE - (location%BLOCKSIZE)), size);
-		cout << "insertHelper-blah: " << BLOCKSIZE - (location%BLOCKSIZE) << endl;
+\\
         buffer.write(tempDesc, BLOCKSIZE - (location%BLOCKSIZE));
         insertHelper(temp, location + (BLOCKSIZE - (location%BLOCKSIZE)));
     }
