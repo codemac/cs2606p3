@@ -2,16 +2,14 @@
 
 
 int Buffer::write(char* str, int block, int length) {
-	cout << "Buffer::write() is called" << endl;
-	memcpy(buffer+(block - startBlock),str,length);
+	memcpy(&buffer[block-startBlock],str,length);
 	dirty = true;
 	return BLOCKSIZE - block - length;
 }
 
 char* Buffer::read(int block, int length) {
 	char* whoa = new char[length];
-	memcpy(whoa, &(buffer[block - startBlock]), length);
-	cout << "BUFFER: " << buffer << endl;
+	memcpy(whoa, &(buffer[block-startBlock]), length);
 	return whoa;
 }
 

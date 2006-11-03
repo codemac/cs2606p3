@@ -44,4 +44,9 @@ int main(int argc, char* argv[])
     StringDB bob("output.txt", 5);
 	bob.parse();
 	return 0;
+    /*BufferPool buffer;
+    buffer.init("output.txt", 5);
+    char* temp = new char[50];
+    buffer.read(temp, 0, 10);
+    cout << temp << endl;*/
 }
