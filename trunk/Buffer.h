@@ -26,7 +26,7 @@ class Buffer {
 			dirty = false;
 		}
 
-		int write(char* str, int block);
+		int write(char* str, int block, int length);
 		char* read(int block, int length);
 		const char* read() const;
 		bool isDirty();

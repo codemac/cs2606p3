@@ -38,7 +38,7 @@ class BufferPool {
 		~BufferPool() {
 		}
 		void init(char* theFile, int numBuffs);
-		int write(char* towrite, int fileOffset);
+		int write(char* towrite, int fileOffset, int length);
 		bool read(char* tostore, int fileOffset, int length);
 };
 #endif

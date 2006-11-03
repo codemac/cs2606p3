@@ -1,10 +1,10 @@
 #include "BufferPool.h"
 
 
-int BufferPool::write(char* towrite, int fileOffset) {
+int BufferPool::write(char* towrite, int fileOffset, int length) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
-			int i = memory[i]->write(towrite, fileOffset);
+			int i = memory[i]->write(towrite, fileOffset, length);
             return i;
 		}
 	}
