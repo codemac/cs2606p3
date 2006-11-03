@@ -28,7 +28,7 @@ class Buffer {
 
 		int write(char* str, int block, int length);
 		char* read(int block, int length);
-		const char* read() const;
+		char* read() const;
 		bool isDirty();
 		int block();
 		bool inRange( int block );

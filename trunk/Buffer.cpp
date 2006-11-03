@@ -2,26 +2,20 @@
 
 
 int Buffer::write(char* str, int block, int length) {
+	cout << "Buffer::write() is called" << endl;
 	memcpy(buffer+(block - startBlock),str,length);
 	dirty = true;
-    cout << "BUFFER " << buffer << endl;
 	return BLOCKSIZE - block - length;
 }
 
 char* Buffer::read(int block, int length) {
 	char* whoa = new char[length];
-    cout << "BUFFER IT UP" << &(buffer[block-startBlock]) << endl;
 	memcpy(whoa, &(buffer[block - startBlock]), length);
+	cout << "BUFFER: " << buffer << endl;
 	return whoa;
 }
 
-char* Buffer::read(void) {
-	char whoa = new char[BLOCKSIZE];
-	memcpy(whoa, &(buffer), BLOCKSIZE);
-	return whoa;
-}
-
-const char* Buffer::read() const {
+char* Buffer::read() const {
 	return buffer;
 }
 
@@ -34,6 +28,5 @@ int Buffer::block() {
 }
 
 bool Buffer::inRange( int block ) {
-    bool range = ( (block <= startBlock + BLOCKSIZE) || (block >= startBlock));
-	return range;
+    return ( (block <= startBlock + BLOCKSIZE) || (block >= startBlock));
 }
