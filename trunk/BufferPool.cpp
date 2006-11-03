@@ -28,7 +28,6 @@ bool BufferPool::read(char* toread, int fileOffset, int length) {
 	}
 	
 	rotateCleanNew(fileOffset, length);
-	
 
 	memcpy(toread, memory[0]->read(fileOffset, length), length);
 	return true;
