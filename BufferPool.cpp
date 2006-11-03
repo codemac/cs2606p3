@@ -12,7 +12,7 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
 		}
 	}
 	rotateCleanNew(fileOffset, length);
-	cout << "memory[0]:  " << memory[0] << endl;
+	cout << "memory[0]:  " << memory[0] << "memory[0]->block(): " << memory[0]->block()<< endl;
 	int i = memory[0]->write(towrite, fileOffset, length);
 	stream.seekp(memory[0]->block());
 	stream.write(memory[0]->read(), BLOCKSIZE);
@@ -52,7 +52,8 @@ void BufferPool::rotateCleanNew(int offset, int length) {
 		}
 		int bufferedOffset = (offset / BLOCKSIZE)*BLOCKSIZE;
 		
-		memory[0] = new Buffer( bufferedOffset );
+		Buffer* buff = new Buffer( bufferedOffset );
+		memory[0] = buff;
 		struct stat results;
 		if (stat(filename.c_str(), &results) == 0) {
 			if( bufferedOffset+512 > results.st_size) {
