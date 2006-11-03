@@ -20,7 +20,7 @@ class BufferPool {
 		int total;
 		Buffer** memory;
 		
-		void rotateCleanNew(int offset);
+		void rotateCleanNew(int offset, int length);
 
 	public:
 		BufferPool() {
