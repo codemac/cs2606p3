@@ -8,8 +8,8 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
             return i;
 		}
 	}
-	rotateCleanNew(fileOffset);
-	int i = memory[0]->write(towrite, fileOffset);
+	rotateCleanNew(fileOffset, length);
+	int i = memory[0]->write(towrite, fileOffset, length);
     return i;
 
 }
@@ -23,14 +23,14 @@ bool BufferPool::read(char* toread, int fileOffset, int length) {
 		}
 	}
 	
-	rotateCleanNew(fileOffset);
+	rotateCleanNew(fileOffset, length);
 	
 
 	memcpy(toread, memory[0]->read(fileOffset, length), length);
 	return true;
 }
 
-void BufferPool::rotateCleanNew(int offset) {
+void BufferPool::rotateCleanNew(int offset, int length) {
     if ( total > 0 ) {
 		Buffer* lastbuf = memory[0];
 		Buffer* nextbuf = 0;
@@ -64,7 +64,7 @@ void BufferPool::rotateCleanNew(int offset) {
 		char* toRead = new char[BLOCKSIZE];
 		stream.read(toRead, BLOCKSIZE);
 
-		memory[0]->write(toRead, bufferedOffset);
+		memory[0]->write(toRead, bufferedOffset, length);
 		delete[] toRead;
 	}
 }
