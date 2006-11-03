@@ -21,16 +21,14 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
 }
 
 bool BufferPool::read(char* toread, int fileOffset, int length) {
-	for( int i = 0; i < total; i++) {
+	for( int i = 0; i < total && memory[i] != 0; i++) {
 		if ( memory[i]->inRange(fileOffset)) {
             cout << "OFFSET: " << fileOffset << " LENGTH: " << length << endl;
 			memcpy(toread, memory[i]->read(fileOffset, length), length);
 			return true;
 		}
 	}
-	
 	rotateCleanNew(fileOffset, length);
-
 	memcpy(toread, memory[0]->read(fileOffset, length), length);
 	return true;
 }
@@ -39,6 +37,7 @@ void BufferPool::rotateCleanNew(int offset, int length) {
     if ( total > 0 ) {
 		Buffer* lastbuf = memory[0];
 		Buffer* nextbuf = 0;
+        
 		for( int i = 1; i < total; i++) {
 			nextbuf = memory[i];
 			memory[i] = lastbuf;
@@ -69,7 +68,6 @@ void BufferPool::rotateCleanNew(int offset, int length) {
 		
 		char* toRead = new char[BLOCKSIZE];
 		stream.read(toRead, BLOCKSIZE);
-
 		memory[0]->write(toRead, bufferedOffset, length);
 		delete[] toRead;
 	}
