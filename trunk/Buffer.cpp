@@ -15,6 +15,12 @@ char* Buffer::read(int block, int length) {
 	return whoa;
 }
 
+char* Buffer::read(void) {
+	char whoa = new char[BLOCKSIZE];
+	memcpy(whoa, &(buffer), BLOCKSIZE);
+	return whoa;
+}
+
 const char* Buffer::read() const {
 	return buffer;
 }
