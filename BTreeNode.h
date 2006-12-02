@@ -1,3 +1,6 @@
+#ifndef BTREENODE_H
+#define BTREENODE_H
+
 //	For internal nodes:
 //
 //	they need to store:
@@ -6,3 +9,13 @@
 //		Flag if internal node.
 //		Block number.
 //		How many children.
+//
+//	for each leaf node:
+//		 
+
+template <typename R>
+class BTreeNode {
+	private:
+	public:
+};
+#endif
