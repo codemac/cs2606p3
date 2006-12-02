@@ -1,13 +1,14 @@
 #ifndef BTREE_H
 #define BTREE_H
 
-#include "Record.h"
+#include "BTreeNode.h"
 
 using namespace std;
 
-template <typename R>
+template <typename R, typename C>
 class BTree {
 	private:
+		
 	public:
 		bool insert(R* record);
 		bool delete(R* record);
