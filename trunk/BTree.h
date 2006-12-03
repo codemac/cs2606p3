@@ -6,7 +6,6 @@
 #include "BTreeLeafNode.h"
 #include "BTreeInternalNode.h"
 #include "MemoryManager.h"
-#include "KeyPointer.h"
 
 using namespace std;
 
