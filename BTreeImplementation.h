@@ -36,9 +36,15 @@ void BTree<R,C>::findFirstRecord(bool debug, R* record, R* root) {
 		int* pointer = root->pointer();
 
 		for (int i = 0; pointer[i] != -1; i++) {
-			if (key[i] == compare.getDiscrim(record))
-				return mm->nodeat(pointer[i]*BLOCKSIZE);
+			BTreeNode* bt = mm->nodeat(pointer[i]*BLOCKSIZE);
+			if (key[i] == compare.getDiscrim(record)) {
+				if (debug) bt->print();
+				return bt;
+			} else {
+				bt->findFirstRecord(debug,record,bt);
+			}
 		}
+
 	}
 
 }
