@@ -1,9 +1,9 @@
-#ifndef COMPID_H
-#define COMPID_H
+#ifndef RECORDCOMP_H
+#define RECORDCOMP_H
 
 #include "Record.h"
 
-class CompID {
+class RecordComp {
 	public:
 		bool lt(Record* lhs, Record* rhs);
 		bool lt(Record* lhs, unsigned int rhs);
