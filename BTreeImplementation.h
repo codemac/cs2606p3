@@ -22,31 +22,43 @@ void BTree<R,C>::dumpHelper(BTreeNode* root) {
 
 template <typename R, typename C>
 void BTree<R,C>::search(bool debug, R* record1, R* record2 = 0 ) {
-	findFirstRecord(debug, record1, root);
+	BTreeNode* bt = findFirstRecord(debug, record1, root);
+	if ( bt ) {
+		bt->print();
+		if ( record2 != 0 ) {
+			next = mm->nodeat(bt->right()*BLOCKSIZE);
+			while ( next != 0 ) {
+				if ( debug )
+					next->print();
+				
+				if ( )
+				next = mm->nodeat(bt->right()*BLOCKSIZE);
+			}
+		}
+	} else {
+		cout << "No results found." << endl;
+	}
 }
 
 template <typename R, typename C>
-void BTree<R,C>::findFirstRecord(bool debug, R* record, R* root) {
+BTreeNode* BTree<R,C>::findFirstRecord(bool debug, R* record, R* root) {
 	if (root == 0 || record == 0)
-		return;
-	if (compare.equal(root, record)) {
-		root->print();
+		return 0;
+	} else if ( root->isLeaf() ) {
+		if (debug)
+			root->print();
+		R** records = compare.splice(root);
+		for ( int i=0; records[i] != 0; i++ )
+			
 	} else {
 		int* key = root->key();
 		int* pointer = root->pointer();
 
 		for (int i = 0; pointer[i] != -1; i++) {
 			BTreeNode* bt = mm->nodeat(pointer[i]*BLOCKSIZE);
-			if (key[i] == compare.getDiscrim(record)) {
-				if (debug) bt->print();
-				return bt;
-			} else {
-				bt->findFirstRecord(debug,record,bt);
-			}
+			bt->findFirstRecord(debug,record,bt);
 		}
-
 	}
-
 }
 
 template <typename R, typename C>

@@ -1,6 +1,7 @@
 #ifndef BTREE_H
 #define BTREE_H
 
+#include <iostream>
 #include "BTreeNode.h"
 #include "BTreeLeafNode.h"
 #include "BTreeInternalNode.h"
@@ -18,8 +19,7 @@ class BTree {
 		C compare;
 		MemoryManager mm(512);
 		void dumpHelper(BTreeNode* root);
-		void findFirstRecord(bool debug, R* record, R* root);
-		
+		BTreeNode* findFirstRecord(bool debug, R* record, R* root);
 	public:
 		bool insert(R* record);
 		bool delete(R* record);
