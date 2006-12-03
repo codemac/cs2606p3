@@ -36,17 +36,11 @@
 
 int main(int argc, char* argv[])
 {
-	/*if( argc != 3 ) {
+	if( argc != 3 ) {
 		std::cout << "You need 2 arguments, file name and then the number of buffers used to store them.  You fail." << std::endl;
 		return 1;
-	}*/
-	//StringDB bob(argv[0], atoi(argv[1]));
-    StringDB bob("output.txt", 5);
+	}
+	StringDB bob(argv[0], atoi(argv[1]));
 	bob.parse();
 	return 0;
-    /*BufferPool buffer;
-    buffer.init("output.txt", 5);
-    char* temp = new char[50];
-    buffer.read(temp, 0, 10);
-    cout << temp << endl;*/
 }
