@@ -4,7 +4,6 @@
 #include <iostream>
 using namespace std;
 
-template <typename R>
 class BTreeInternalNode
 {
     public: 
@@ -20,13 +19,11 @@ class BTreeInternalNode
     
     
     private:
-    int* key;
-    int* pointer;
+    int* keys;
+    int* pointers;
     const static int SIZE = 60;
     int childcount;
-    int blockNum;
+    int blockNums;
 };
-
-#include BTreeInternalNodeImplementation.h
 
 #endif //BTREEINTERNALNODE_H
