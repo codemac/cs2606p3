@@ -11,11 +11,13 @@
 //		How many children.
 //
 //	for each leaf node:
-//		 
+//
 
 template <typename R>
 class BTreeNode {
 	private:
 	public:
+    void Print();
+    
 };
 #endif
