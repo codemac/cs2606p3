@@ -30,9 +30,17 @@ void BTree<R,C>::search(bool debug, R* record1, R* record2 = 0 ) {
 			while ( next != 0 ) {
 				if ( debug )
 					next->print();
-				
-				if ( )
-				next = mm->nodeat(bt->right()*BLOCKSIZE);
+				R** records = compare.splice(next);
+				for ( int i = 0; (records[i] != 0) && i > 0; i++ ) {
+					if ( compare.lt(records[i],record2)) {
+						records[i]->print();
+					} else if (compare.equal(records[i], record2)){
+						records[i]->print();
+						i = -1;
+					} else {
+						i = -1;
+					}
+				}
 			}
 		}
 	} else {
@@ -48,8 +56,12 @@ BTreeNode* BTree<R,C>::findFirstRecord(bool debug, R* record, R* root) {
 		if (debug)
 			root->print();
 		R** records = compare.splice(root);
-		for ( int i=0; records[i] != 0; i++ )
-			
+		for ( int i = 0; (records[i] != 0) && i > 0; i++ ) {
+			if (compare.equal(records[i], record2)) {
+				records[i]->print();
+				i = -1;
+			}
+		}
 	} else {
 		int* key = root->key();
 		int* pointer = root->pointer();
@@ -67,5 +79,6 @@ bool BTree<R,C>::delete(R* record) {
 
 template <typename R, typename C>
 bool BTree<R,C>::insert(R* record) {
+
 }
 
