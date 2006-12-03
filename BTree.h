@@ -18,7 +18,7 @@ class BTree {
 		C compare;
 		MemoryManager mm(512);
 		void dumpHelper(BTreeNode* root);
-		BTreeNode* findFirstRecord(bool debug, R* record, R* root);
+		BTreeNode* findNode(bool debug, R* record, R* root);
 	public:
 		bool insert(R* record);
 		bool delete(R* record);
