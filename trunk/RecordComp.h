@@ -1,7 +1,10 @@
 #ifndef RECORDCOMP_H
 #define RECORDCOMP_H
 
+#include <iostream>
 #include "Record.h"
+
+using namespace std;
 
 class RecordComp {
 	public:
