@@ -21,6 +21,6 @@ void RecordComp::dump(Record* obj) {
 	cout << "Record " << obj->ID() << ": " << obj->ID() << endl;
 }
 
-BTreeNode* RecordComp::splice(BTreeNode* bt) {
+Record** RecordComp::splice(BTreeNode<Record>* bt) {
 	//	TODO
 }
