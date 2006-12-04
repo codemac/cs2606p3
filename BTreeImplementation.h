@@ -21,7 +21,7 @@ void BTree<R,C>::dumpHelper(BTreeNode<R>* root) {
 }
 
 template <typename R, typename C>
-void BTree<R,C>::search(bool debug, R* record1, R* record2 = 0 ) {
+void BTree<R,C>::search(bool debug, R* record1, R* record2 ) {
 	//	find first node that contains the first record
 	//	if record2 == 0, stop
 	//	else loop through records to see if record2 limit is there
@@ -112,12 +112,12 @@ bool BTree<R,C>::insert(R* record) {
 }
 
 template <typename R, typename C>
-BTreeNode<R>* newLeaf(R** records, BTreeNode<R>* node) {
-	BTreeNode<R>* newnode = new BTreeLeafNode();
+BTreeNode<R>* BTree<R,C>::newLeaf(R** records, int length, BTreeNode<R>* node) {
+	BTreeNode<R>* newnode = new BTreeLeafNode<R>();
 	for( int i = 0; i < length; i++ )
 		newnode->addRecord(records[i]);
 	newnode->setRight(node->right());
 	newnode->setLeft(node->blockNum());
 	node->setRight(newnode->blockNum());
-	newnode->setBlockNum(mm->insert(charstar(newnode)) / BLOCKSIZE);
+	newnode->setBlockNum(mm.insert(charstar(newnode)) / BLOCKSIZE);
 }

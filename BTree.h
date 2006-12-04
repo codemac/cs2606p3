@@ -16,7 +16,7 @@ class BTree {
 	private:
 		BTreeNode<R>* root;				///	 root node of btree
 		C compare;
-		MemoryManager mm(512);
+		MemoryManager mm;
 		void dumpHelper(BTreeNode<R>* root);
 		BTreeNode<R>* findNode(bool debug, R* record, R* root);
 		void printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2);
@@ -24,7 +24,7 @@ class BTree {
 		BTreeNode<R>* newLeaf(R** records,int length, BTreeNode<R>* node);
 	public:
 		bool insert(R* record);
-		bool delete(R* record);
+		bool remove(R* record);
 		void search(bool debug, R* record1, R* record2 = 0);
 		void dump();
 };
