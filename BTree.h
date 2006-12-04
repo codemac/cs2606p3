@@ -20,7 +20,8 @@ class BTree {
 		C compare;
 		MemoryManager mm;
 		void dumpHelper(BTreeNode<R>* root);
-		BTreeNode<R>* findNode(bool debug, R* record, R* root);
+		BTreeNode<R>* findNode(bool debug, R* record, BTreeNode<R>* root);
+		BTreeNode<R>* findParent(BTreeNode<R>* node, BTreeNode<R>* root);
 		void printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2);
 		BTreeNode<R>* makeNode( int fileOffset );
 		BTreeNode<R>* newLeaf(R** records,int length, BTreeNode<R>* node);
