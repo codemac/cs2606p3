@@ -31,7 +31,7 @@ void BTree<R,C>::search(bool debug, R* record1, R* record2 ) {
 }
 
 template <typename R, typename C>
-BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, R* root) {
+BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, BTreeNode<R>* root) {
 	if ( root ) {
 		if ( debug ) root->print();
 		if ( root->isLeaf() ) {
@@ -52,6 +52,23 @@ BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, R* root) {
 		return 0;
 	}
 }
+
+template <typename R, typename C>
+BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* root) {
+	if ( !root->isLeaf() ) {
+		int* key = root->key();
+		int* pointer = root->pointer();
+		for ( int i = 0; i < root->childCount(); i++ ) {
+			if ( pointer[i] == node->blockNum() )
+				return root;
+		}
+		for ( int i = 0; i < root->childCount(); i++ ) {
+			findParent(node, makeNode(pointer[i]));
+	} else {
+			return 0;
+	}
+}
+
 
 template <typename R, typename C>
 void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2) {
