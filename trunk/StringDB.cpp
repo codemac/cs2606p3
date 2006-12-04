@@ -27,16 +27,16 @@ void StringDB::parse()
         if(name == "print")
         {
             cin >> ID;
-            print(ID);
+            //print(ID);
         }
         else if(name == "dump")
         {
-            dump();
+            //dump();
         }
         else if (name == "remove")
         {
             cin >> ID;
-            remove(ID);
+            //remove(ID);
             
         }
         else if(name == "insert")
@@ -61,7 +61,7 @@ void StringDB::parse()
 				}
 				else {
 					lines.erase(lines.length()-1);
-					insert(ID,lines);
+					//insert(ID,lines);
                     ok = false;
 				}
 			}
@@ -73,6 +73,7 @@ void StringDB::parse()
     }
 }
 
+/*
 void StringDB::insert(int ID, string name)
 {
 	memory.insert(ID, name);
@@ -92,3 +93,4 @@ void StringDB::print(int ID)
 {
 	memory.print(ID);
 }
+*/
