@@ -17,7 +17,6 @@
  * @version 11/02/06
  */
 
-#include "Handle.h"
 #include "BufferPool.h" 
 #include <string>
 #include <iostream>
@@ -54,93 +53,40 @@ class MemoryManager
     void init(char* fileLocation, int numBuffers);
     
     /**
-     * This method is used to insert the string into the file at the location
-     * determined by the best fit algorithm.  This method also creates a handle
-     * object and stores that handle into the array in the place designated by 
-     * the ID.
-     * @param ID the ID used to store the handle in the array
-     * @param name the string that is to be put into the file
-     * @return Handle* the newly created Handle object containing the location
-     * and length of the string in the file.
+     * This method is used to insert the contents of a node from the B+ tree
+     * into a block of size 512 at the designated location in the file.
+     * @param location the location of the block to write to.
+     * @param record the char* that represents the node to be written to file.
+     * @return bool whether or not the insert was successful.
      */
-    Handle* insert(int ID, string name);
+    bool insert(int location, char* record);
     
     /**
-     * This method removes the Handle from the Handle array, making it
-     * impossible to access the string at the location of that handle, which in
-     * turn effectively removes it.
-     * @param ID the ID of the handle to remove
+     * This method returns the 512 byte char* that is found at the location in
+     * the file determined by the file offset.
+     * @param fileOffset the file offset to use in finding the char*
+     * @return char* the contents of the node at that location.
      */
-    void release(int ID);
+    char* get(int fileOffset);
     
     /**
-     * This method returns the char* that is found with the length and location
-     * in the file determined by the Handle.
-     * @param handle the handle to use in finding the char*
-     * @return char* the string that is found.
+     * This method returns the first element of the free list used to store
+     * empty blocks where a new node can be written to.
+     * @return int the file offset where the first block is found.
      */
-    char* get(Handle* handle);
+    int freeList();
     
     /**
-     * This method prints out in order the blocks held in the Free List.
+     * This method is used to add a file offset to the free list of open blocks.
+     * @param fileOffset the offset to be added.
      */
-    void dump();
-    
-    /**
-     * This method is used to print the char* found at the location given
-     * by the handle found in the array at location ID
-     * @param ID the location in the array for the designated handle
-     */
-    void print(int ID);
+    void addFreeList(int fileOffset);
     
     private:
-    /**
-     * This method is used to merge adjacent blocks in the free list to one
-     * larger free list block.
-     * @param handle the handle to insert into the free list
-     */
-    void merge(Handle* handle);
     
-    /**
-     * The size of one block in the buffer pool
-     */
     const static unsigned int BLOCKSIZE = 512;
-    
-    /**
-     * The number of ID's allowed and subsequently the size of the handle array.
-     */
-    const static unsigned int NUMIDS = 1000;
-    
-    /**
-     * This method is recursively called to deal with the writing of a string
-     * to the file, including code to deal with the string if it spans the
-     * length of two or more block sizes.
-     * @param description the char* to be written to file
-     * @param location the location to write it to file
-     */
-    void insertHelper(char* description, unsigned int location);
-    
-    /**
-     * This array is used to hold the handle objects.  Each handle in the array
-     * is in the spot designated by it's ID.
-     */
-    Handle* handler[NUMIDS];
-    
-    /**
-     * The BufferPool object to be used.
-     */
     BufferPool buffer;
-    
-    /**
-     * This int is used to store the location of the furthest available location
-     * in the file
-     */
-    unsigned int fileLoc;
-    
-    /**
-     * This linked list is used to hold Handle objects that designate free
-     * space in the file.
-     */
-    list<Handle*> freeList;
+    unsigned int count;
+    list<int> fList;
 };
 #endif //MEMORYMANAGER_H_

@@ -6,7 +6,6 @@
 #include <string>
 #include <fstream>
 #include <sys/stat.h>
-#include "Handle.h"
 #include "Buffer.h"
 
 using namespace std;

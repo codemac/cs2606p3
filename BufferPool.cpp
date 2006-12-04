@@ -1,6 +1,5 @@
 #include "BufferPool.h"
 
-
 int BufferPool::write(char* towrite, int fileOffset, int length) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
@@ -15,7 +14,6 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
 	stream.seekp(memory[0]->block());
 	stream.write(memory[0]->read(), BLOCKSIZE);
     return i;
-
 }
 
 bool BufferPool::read(char* toread, int fileOffset, int length) {
