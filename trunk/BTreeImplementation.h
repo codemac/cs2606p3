@@ -112,8 +112,8 @@ bool BTree<R,C>::insert(R* record) {
 }
 
 template <typename R, typename C>
-BTreeNode<R>* BTree<R,C>::newLeaf(R** records, int length, BTreeNode<R>* node) {
-	BTreeNode<R>* newnode = new BTreeLeafNode<R>();
+BTreeNode<R>* BTree<R,C>::newLeaf(R** records, BTreeNode<R>* node) {
+	BTreeNode<R>* newnode = new BTreeLeafNode();
 	for( int i = 0; i < length; i++ )
 		newnode->addRecord(records[i]);
 	newnode->setRight(node->right());
