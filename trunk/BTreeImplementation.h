@@ -58,9 +58,9 @@ void printSearch(bool debug, BTreeNode* node, R* record1, R* record2) {
 	if ( debug ) node->print();
 
 	if ( record2 ) {
-		R** records = node->record();
+		R* records[node->numRecords()] = node->record();
 		int i = 0;
-		for ( i = 0; records[i] != 0 && i != -1; i++ ) {
+		for ( i = 0; i < node->numRecords() && i != -1; i++ ) {
 			if ( compare.equal(records[i], record1) ||
 					( compare.lt(records[i], record2) ||
 					  compare.equal(records[i], record2) ) )
@@ -86,7 +86,19 @@ bool BTree<R,C>::insert(R* record) {
 		char* node = charstar(node);
 		if ( strlen(node) > BLOCKSIZE ) {
 			if ( node->removeRecord(record) ) {
+				R* records[node->numRecords()] = node->record();
 				
+				int half = node->numRecords() / 2;
+
+				R* secondRecords[node->numRecords() - half];
+				for ( int i = 0; i < (node->numRecords() - half); i++ )
+					secondRecords[i] = records[i + half];
+				
+				for ( int i = 0; i < (node->numRecords() - half); i++ )
+					node->removeRecord(compare.getDiscrim(records[i + half]));
+
+				newNode(secondRecords, node);
+
 			} else {
 				return false;
 			}

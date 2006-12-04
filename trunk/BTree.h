@@ -19,6 +19,8 @@ class BTree {
 		MemoryManager mm(512);
 		void dumpHelper(BTreeNode* root);
 		BTreeNode* findNode(bool debug, R* record, R* root);
+		BTreeNode* makeNode( int fileOffset );
+		BTreeNode* newNode(R** records, BTreeNode* node);
 	public:
 		bool insert(R* record);
 		bool delete(R* record);
