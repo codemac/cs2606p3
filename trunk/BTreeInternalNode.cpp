@@ -9,7 +9,7 @@ BTreeInternalNode::BTreeInternalNode()
         keys[i] = -1;
         pointers[i] = -1;
     }
-    childcount = 0;
+    child = 0;
     blockNums = -1;
 }
 
@@ -30,31 +30,64 @@ int BTreeInternalNode::blockNum()
 
 int BTreeInternalNode::childCount()
 {
-    return childcount;
+    return child;
 }
 
-void BTreeInternalNode::addKey(int theKey)
+void BTreeInternalNode::addChild(int theKey, int block)
 {
+    int tempKey = theKey;
+    int tempBlock = block;
     for (int i=0; i < SIZE; i++)
     {
         if(keys[i] == -1)
         {
             keys[i] = theKey;
+            pointers[i] = block;
+            child++;
             return;
+        }
+        else
+        {
+            if(keys[i] > tempKey)
+            {
+                int storeKey = keys[i];
+                int storeBlock = pointers[i];
+                keys[i] = tempKey;
+                pointers[i] = tempBlock;
+                tempKey = storeKey;
+                tempBlock = storeBlock;
+            }
         }
     }
 }
 
-void BTreeInternalNode::addPointer(int block)
+bool BTreeInternalNode::removeChild(int ID)
 {
-    for (int i=0; i < SIZE; i++)
+    bool removed = false;
+    for (int i = 0; i < SIZE; i++)
     {
-        if(pointers[i] == -1)
+        if(removed == true)
         {
-            pointers[i] = block;
-            return;
+            if(keys[i] != -1)
+            {
+                keys[i-1] = keys[i];
+                pointers[i-1] = pointers[i];
+                keys[i] = -1;
+                pointers[i] = -1;
+            }
+        }
+        else if(keys[i] != -1)
+        {
+            if(keys[i] == ID)
+            {
+                keys[i] = -1;
+                pointers[i] = -1;
+                child--;
+                removed = true;
+            }
         }
     }
+    return removed;
 }
 
 void BTreeInternalNode::setBlockNum(int theBlock)
