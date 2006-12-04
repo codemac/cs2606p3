@@ -2,6 +2,8 @@
 #define BTREE_H
 
 #include <iostream>
+#include <cstring>
+
 #include "BTreeNode.h"
 #include "BTreeLeafNode.h"
 #include "BTreeInternalNode.h"
@@ -22,6 +24,7 @@ class BTree {
 		void printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2);
 		BTreeNode<R>* makeNode( int fileOffset );
 		BTreeNode<R>* newLeaf(R** records,int length, BTreeNode<R>* node);
+		char* charstar(BTreeNode<R>* node);
 	public:
 		bool insert(R* record);
 		bool remove(R* record);

@@ -121,3 +121,9 @@ BTreeNode<R>* BTree<R,C>::newLeaf(R** records, BTreeNode<R>* node) {
 	node->setRight(newnode->blockNum());
 	newnode->setBlockNum(mm.insert(charstar(newnode)) / BLOCKSIZE);
 }
+
+template <typename R, typename C>
+BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
+	char* bob = mm.get(fileOffset * BLOCKSIZE);
+
+}
