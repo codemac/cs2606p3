@@ -1,5 +1,7 @@
-#include "BTreeInternalNode.h"
+#include <iostream>
+using namespace std;
 
+template <typename T>
 BTreeInternalNode::BTreeInternalNode()
 {
     keys = new int[SIZE];
@@ -13,26 +15,31 @@ BTreeInternalNode::BTreeInternalNode()
     blockNums = -1;
 }
 
+template <typename T>
 int* BTreeInternalNode::pointer()
 {
     return pointers;
 }
 
+template <typename T>
 int* BTreeInternalNode::key()
 {
     return keys;
 }
 
+template <typename T>
 int BTreeInternalNode::blockNum()
 {
     return blockNums;
 }
 
+template <typename T>
 int BTreeInternalNode::childCount()
 {
     return child;
 }
 
+template <typename T>
 void BTreeInternalNode::addChild(int theKey, int block)
 {
     int tempKey = theKey;
@@ -61,6 +68,7 @@ void BTreeInternalNode::addChild(int theKey, int block)
     }
 }
 
+template <typename T>
 bool BTreeInternalNode::removeChild(int ID)
 {
     bool removed = false;
@@ -90,11 +98,13 @@ bool BTreeInternalNode::removeChild(int ID)
     return removed;
 }
 
+template <typename T>
 void BTreeInternalNode::setBlockNum(int theBlock)
 {
     blockNums = theBlock;
 }
 
+template <typename T>
 void BTreeInternalNode::print()
 {
     cout << "Internal Node: Block " << blockNum() << " - " << childCount() << " children: ";
