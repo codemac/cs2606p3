@@ -5,7 +5,7 @@
 using namespace std;
 
 template <typename Rec>
-class BTreeLeafNode
+class BTreeLeafNode : BTreeNode<Rec>
 {
     public:
     BTreeLeafNode();

@@ -15,9 +15,16 @@
 
 template <typename R>
 class BTreeNode {
-	private:
+	
+    private:
+    
+    
 	public:
-    void Print();
+    BTreeNode() {};
+    virtual ~BTreeNode();
+    virtual int blockNum() = 0;
+    virtual void setBlockNum();
+    virtual void print();
     
 };
 #endif

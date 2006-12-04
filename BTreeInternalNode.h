@@ -1,10 +1,8 @@
 #ifndef BTREEINTERNALNODE_H
 #define BTREEINTERNALNODE_H
 
-#include <iostream>
-using namespace std;
-
-class BTreeInternalNode
+template <typename T>
+class BTreeInternalNode : BTreeNode<T>
 {
     public: 
     BTreeInternalNode();
@@ -25,5 +23,7 @@ class BTreeInternalNode
     int child;
     int blockNums;
 };
+
+#include "BTreeInternalNodeImplementation.h"
 
 #endif //BTREEINTERNALNODE_H
