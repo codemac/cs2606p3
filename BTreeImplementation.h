@@ -112,8 +112,8 @@ bool BTree<R,C>::insert(R* record) {
 }
 
 template <typename R, typename C>
-BTreeNode<R>* BTree<R,C>::newLeaf(R** records, BTreeNode<R>* node) {
-	BTreeNode<R>* newnode = new BTreeLeafNode();
+BTreeNode<R>* BTree<R,C>::newLeaf(R** records,int length,  BTreeNode<R>* node) {
+	BTreeNode<R>* newnode = new BTreeLeafNode<R>();
 	for( int i = 0; i < length; i++ )
 		newnode->addRecord(records[i]);
 	newnode->setRight(node->right());
@@ -126,11 +126,151 @@ BTreeNode<R>* BTree<R,C>::newLeaf(R** records, BTreeNode<R>* node) {
 
 template <typename R, typename C>
 BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
-	char* bob = mm.get(fileOffset * BLOCKSIZE);
+	char* node = mm.get(fileOffset * BLOCKSIZE);
+	char isleaf[] = "n";
+	int offset = 0;
+	BTreeNode<R>* result;
 
+	memcpy(isleaf, node+offset, strlen(isleaf)+1);
+	offset += strlen(isleaf)+1;
+	
+	if ( isleaf == "y" ) {
+		result = new BTreeLeafNode<R>();
+		int next = 0;
+		memcpy(&next, node+offset, sizeof(int));
+		offset += sizeof(int);
+		result->setLeft(next);
+		
+		memcpy(&next, node+offset, sizeof(int));
+		offset += sizeof(int);
+		result->setRight(next);
+
+		memcpy(&next, node+offset, sizeof(int));
+		offset += sizeof(int);
+		result->setBlockNum(next);
+
+		int numrecord = 0;
+		memcpy(&numrecord, node+offset, sizeof(int));
+		offset += sizeof(int);
+		
+		for ( int i = 0; i < numrecord; i++ )
+		{
+			R* nrec = new R();
+			memcpy(&next, node+offset, sizeof(int));
+			offset+=sizeof(int);
+			nrec->length(next);
+			memcpy(&next, node+offset, sizeof(int));
+			offset+=sizeof(int);
+			nrec->cost(next);
+			memcpy(&next, node+offset, sizeof(int));
+			offset+=sizeof(int);
+			nrec->ID(next);
+			char* nexts = new char[512];
+			strcpy(nexts, node+offset);
+			offset += strlen(nexts)+1;
+			nrec->title(string(nexts));
+			strcpy(nexts, node+offset);
+			offset += strlen(nexts)+1;
+			nrec->date(string(nexts));
+
+			result->addRecord(nrec);
+		}
+		return result;
+	} else {
+		result = new BTreeInternalNode<R>();
+		int next = 0;
+		
+		memcpy(&next, node+offset, sizeof(int));
+		offset += sizeof(int);
+		result->setBlockNum(next);
+		
+		memcpy(&next, node+offset, sizeof(int));
+		offset += sizeof(int);
+
+		for ( int i = 0; i < next; i++ ) {
+			int key = 0;
+			int pointer = 0;
+
+			memcpy(&key, node+offset, sizeof(int));
+			offset += sizeof(int);
+			memcpy(&pointer, node+offset, sizeof(int));
+			offset += sizeof(int);
+
+			result->addChild(key,pointer);
+		}
+		return result;
+	}
+	return 0;
 }
 
 template <typename R, typename C>
 char* BTree<R,C>::charstar(BTreeNode<R>* node) {
+	char* final = new char[512];
+	if ( node->isLeaf() ) {
+		char isleaf[] = "y";
+		int lefty = node->left();
+		int righty = node->right();
+		int block = node->blockNum();
+		int numrecord = node->numRecords();
+		int offset = 0;
 		
+		memcpy(final+offset, isleaf, strlen(isleaf)+1);
+		offset += strlen(isleaf)+1;
+		memcpy(final+offset, &lefty, sizeof(int));
+		offset += sizeof(int);
+		memcpy(final+offset, &righty, sizeof(int));
+		offset += sizeof(int);
+		memcpy(final+offset, &block, sizeof(int));
+		offset += sizeof(int);
+		memcpy(final+offset, &numrecord, sizeof(int));
+		offset += sizeof(int);
+		
+		R** records = node->record();
+
+		for( int i = 0; i < numrecord; i++ ) {
+			int length = records[i]->length();
+			int cost = records[i]->cost();
+			int id = records[i]->ID();
+			
+			char* title = records[i]->title().c_str();
+			char* datetime = records[i]->date().c_str();
+
+			memcpy(final+offset, &length, sizeof(int));
+			offset += sizeof(int);
+			memcpy(final+offset, &cost, sizeof(int));
+			offset += sizeof(int);
+			memcpy(final+offset, &id, sizeof(int));
+			offset += sizeof(int);
+
+			memcpy(final+offset, title, strlen(title)+1);
+			offset += strlen(title)+1;
+			memcpy(final+offset, datetime, strlen(datetime)+1);
+			offset += strlen(datetime)+1;
+		}
+		
+		return final;
+	} else {
+		int offset = 0;
+		char isleaf[] = "n";
+		int block = node->blockNum();
+		int childs = node->childCount();
+		
+		memcpy(final+offset, isleaf, strlen(isleaf)+1);
+		offset += strlen(isleaf)+1;
+		memcpy(final+offset, &block, sizeof(int));
+		offset += sizeof(int);
+		memcpy(final+offset, &childs, sizeof(int));
+		offset += sizeof(int);
+
+		int* pointers = node->pointer();
+		int* keys = node->key();
+		for ( int i = 0; i < childs; i++ ) {
+			memcpy(final+offset, &keys[i], sizeof(int));
+			offset+=sizeof(int);
+			memcpy(final+offset, &pointers[i], sizeof(int));
+			offset+=sizeof(int);
+		}
+
+		return final;
+	}
 }
