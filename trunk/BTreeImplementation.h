@@ -54,7 +54,7 @@ BTreeNode* BTree<R,C>::findNode(bool debug, R* record, R* root) {
 }
 
 template <typename R, typename C>
-void printSearch(bool debug, BTreeNode* node, R* record1, R* record2) {
+void BTree<R,C>::printSearch(bool debug, BTreeNode* node, R* record1, R* record2) {
 	if ( debug ) node->print();
 
 	if ( record2 ) {
@@ -75,7 +75,7 @@ void printSearch(bool debug, BTreeNode* node, R* record1, R* record2) {
 }
 
 template <typename R, typename C>
-bool BTree<R,C>::delete(R* record) {
+bool BTree<R,C>::remove(R* record) {
 }
 
 template <typename R, typename C>
@@ -83,8 +83,9 @@ bool BTree<R,C>::insert(R* record) {
 	if ( record ) {
 		BTreeNode* node = findNode(false, record, root);
 		node->addRecord(record);
-		char* node = charstar(node);
-		if ( strlen(node) > BLOCKSIZE ) {
+		char* nodedata = charstar(node);
+		
+		if ( strlen(nodedata) > BLOCKSIZE ) {
 			if ( node->removeRecord(record) ) {
 				R* records[node->numRecords()] = node->record();
 				
@@ -97,7 +98,7 @@ bool BTree<R,C>::insert(R* record) {
 				for ( int i = 0; i < (node->numRecords() - half); i++ )
 					node->removeRecord(compare.getDiscrim(records[i + half]));
 
-				newNode(secondRecords, node);
+				newNode(secondRecords, half, node);
 
 			} else {
 				return false;
@@ -110,3 +111,13 @@ bool BTree<R,C>::insert(R* record) {
 	}
 }
 
+template <typename R, typename C>
+BTreeNode* newLeaf(R** records, BTreeNode* node) {
+	BTreeNode* newnode = new BTreeLeafNode();
+	for( int i = 0; i < length; i++ )
+		newnode->addRecord(records[i]);
+	newnode->setRight(node->right());
+	newnode->setLeft(node->blockNum());
+	node->setRight(newnode->blockNum());
+	newnode->setBlockNum(mm->insert(charstar(newnode)) / BLOCKSIZE);
+}
