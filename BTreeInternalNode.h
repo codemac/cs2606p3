@@ -12,8 +12,8 @@ class BTreeInternalNode
     int blockNum();
     int* key();
     int childCount();
-    void addKey(int theKey);
-    void addPointer(int block);
+    void addChild(int key, int block);
+    bool removeChild(int ID);
     void setBlockNum(int theBlock);
     void print();
     
@@ -22,7 +22,7 @@ class BTreeInternalNode
     int* keys;
     int* pointers;
     const static int SIZE = 60;
-    int childcount;
+    int child;
     int blockNums;
 };
 
