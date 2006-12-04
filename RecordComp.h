@@ -2,6 +2,7 @@
 #define RECORDCOMP_H
 
 #include <iostream>
+#include "BTreeNode.h"
 #include "Record.h"
 
 using namespace std;
@@ -46,6 +47,6 @@ class RecordComp {
  * @param bt Pointer to btree node of which to splice out records.
  * @return array of record pointers
  */
-		Record** splice(BTreeNode* bt);
+		Record** splice(BTreeNode<Record>* bt);
 };
 #endif
