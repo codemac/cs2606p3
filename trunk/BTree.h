@@ -14,14 +14,14 @@ const static int BLOCKSIZE = 512;
 template <typename R, typename C>
 class BTree {
 	private:
-		BTreeNode* root;				///	 root node of btree
+		BTreeNode<R>* root;				///	 root node of btree
 		C compare;
 		MemoryManager mm(512);
-		void dumpHelper(BTreeNode* root);
-		BTreeNode* findNode(bool debug, R* record, R* root);
-		void printSearch(bool debug, BTreeNode* node, R* record1, R* record2);
-		BTreeNode* makeNode( int fileOffset );
-		BTreeNode* newLeaf(R** records,int length, BTreeNode* node);
+		void dumpHelper(BTreeNode<R>* root);
+		BTreeNode<R>* findNode(bool debug, R* record, R* root);
+		void printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2);
+		BTreeNode<R>* makeNode( int fileOffset );
+		BTreeNode<R>* newLeaf(R** records,int length, BTreeNode<R>* node);
 	public:
 		bool insert(R* record);
 		bool delete(R* record);
