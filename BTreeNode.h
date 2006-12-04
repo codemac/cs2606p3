@@ -16,9 +16,6 @@
 template <typename R>
 class BTreeNode {
 	
-    private:
-    
-    
 	public:
     BTreeNode() {};
     virtual ~BTreeNode();
