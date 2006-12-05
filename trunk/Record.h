@@ -29,6 +29,9 @@ class Record {
 		int length();
 		void length(const unsigned int& l);
 
+		char* dump();
+		int dumpLength();
+
 		int cost();
 		void cost(const unsigned int& c);
 
