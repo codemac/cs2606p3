@@ -115,7 +115,8 @@ bool BTree<R,C>::insert(R* record) {
 				for ( int i = 0; i < (node->numRecords() - half); i++ )
 					node->removeRecord(compare.getDiscrim(records[i + half]));
 
-				newNode(secondRecords, half, node);
+				BTreeNode<R>* newnode = newNode(secondRecords, half, node);
+				BTreeNode<R>* parent = findParent(newnode);
 
 			} else {
 				return false;
@@ -223,6 +224,7 @@ BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
 template <typename R, typename C>
 char* BTree<R,C>::charstar(BTreeNode<R>* node) {
 	char* final = new char[512];
+	memset(final, ' ', 512);
 	if ( node->isLeaf() ) {
 		char isleaf[] = "y";
 		int lefty = node->left();
@@ -245,24 +247,7 @@ char* BTree<R,C>::charstar(BTreeNode<R>* node) {
 		R** records = node->record();
 
 		for( int i = 0; i < numrecord; i++ ) {
-			int length = records[i]->length();
-			int cost = records[i]->cost();
-			int id = records[i]->ID();
-			
-			char* title = records[i]->title().c_str();
-			char* datetime = records[i]->date().c_str();
-
-			memcpy(final+offset, &length, sizeof(int));
-			offset += sizeof(int);
-			memcpy(final+offset, &cost, sizeof(int));
-			offset += sizeof(int);
-			memcpy(final+offset, &id, sizeof(int));
-			offset += sizeof(int);
-
-			memcpy(final+offset, title, strlen(title)+1);
-			offset += strlen(title)+1;
-			memcpy(final+offset, datetime, strlen(datetime)+1);
-			offset += strlen(datetime)+1;
+			memcpy(final+offset, records[i]->dump(), records[i]->dumpLength());
 		}
 		
 		return final;
