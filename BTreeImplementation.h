@@ -139,7 +139,7 @@ BTreeNode<R>* BTree<R,C>::newLeaf(R** records,int length,  BTreeNode<R>* node) {
 	newnode->setLeft(node->blockNum());
 	node->setRight(newnode->blockNum());
 
-	newnode->setBlockNum(mm.freelist() / BLOCKSIZE);
+	newnode->setBlockNum(mm.freeList() / BLOCKSIZE);
 	mm.insert(newnode->blockNum()*BLOCKSIZE,charstar(newnode));
 }
 

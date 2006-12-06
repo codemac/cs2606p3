@@ -48,22 +48,22 @@ void Record::dump() {
 }
 
 int Record::dumpLength() {
-	return (sizeof(int) * 3) + strlen(title)+1 + strlen(datetime)+1;
+	return (sizeof(int) * 3) + ttitle.length()+1 + ddatetime.length()+1;
 }
 
 void Record::ID(const unsigned int& i) {
 	IID = i;
 }
 
-char* charstar(void) {
+char* Record::charstar(void) {
 	char* final = new char[dumpLength()];
 	int offset = 0;
-	int length = records[i]->length();
-	int cost = records[i]->cost();
-	int id = records[i]->ID();
+	int length = this->length();
+	int cost = this->cost();
+	int id = this->ID();
 	
-	char* title = records[i]->title().c_str();
-	char* datetime = records[i]->date().c_str();
+	const char* title = this->title().c_str();
+	const char* datetime = this->date().c_str();
 	
 	memcpy(final+offset, &length, sizeof(int));
 	offset += sizeof(int);

@@ -88,6 +88,6 @@ class BufferPool {
          * @param length how many characters to read in
          * @return bool true if successful, else false.
          */
-		bool read(char* tostore, int fileOffset, int length);
+		char* read(int fileOffset, int length);
 };
 #endif
