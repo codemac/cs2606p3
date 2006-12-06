@@ -1,5 +1,19 @@
 #include "BTree.h"
 
+BTree<R,C>::BTree()
+{
+}
+
+BTree<R,C>::~BTree()
+{
+}
+
+template <typename R, typename C>
+void BTree<R,C>::init(char* fileLocation, int numBuffers)
+{
+    mm.init(fileLocation, numBuffers);
+}
+
 template <typename R, typename C>
 void BTree<R,C>::dump() {
 	dumpHelper(root);

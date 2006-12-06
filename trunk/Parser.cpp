@@ -2,7 +2,7 @@
 
 Parser::Parser(char* a, int b)
 {
-	memory.init(a, b);
+	tree.init(a, b);
 }
 
 Parser::Parser()
@@ -36,7 +36,8 @@ void Parser::parse()
         }
         else if(name == "insert")
         {
-			string title, date, length, cost= "";
+			string title, date = "";
+            int length, cost = 0;
 			
 			cin >> ID;
             cin >> title;
@@ -56,7 +57,14 @@ void Parser::parse()
             inn >> flag;
             inn >> ID;
             inn >> range;
-            cout << range;
+            if(range == 4202315)
+            {
+                //search(flag, ID);
+            }
+            else
+            {
+                //search(flag, ID, range);
+            }
         }
         else
         {
@@ -66,23 +74,28 @@ void Parser::parse()
 }
 
 /*
-void Parser::insert(int ID, string name)
+void Parser::insert(int ID, string title, string date, int length, int cost)
 {
-	memory.insert(ID, name);
+	tree.insert(ID, name);
 }
 
-void Parser::delete(int ID)
+void Parser::remove(int ID)
 {
-	memory.release(ID);
+	tree.release(ID);
 }
 
 void Parser::dump()
 {
-	memory.dump();
+	tree.dump();
 }
 
 void Parser::search(string flag, int ID, int range)
 {
-	memory.print(ID);
+	tree.search
+}
+
+void Parser::search(string flag, int ID)
+{
+    
 }
 */

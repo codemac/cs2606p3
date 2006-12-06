@@ -27,6 +27,9 @@ class BTree {
 		BTreeNode<R>* newLeaf(R** records,int length, BTreeNode<R>* node);
 		char* charstar(BTreeNode<R>* node);
 	public:
+        BTree();
+        ~BTree();
+        void init(char* fileLocation, int numBuffers);
 		bool insert(R* record);
 		bool remove(R* record);
 		void search(bool debug, R* record1, R* record2 = 0);
