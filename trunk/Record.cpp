@@ -43,7 +43,19 @@ int Record::ID() {
 	return IID;
 }
 
-char* Record::dump() {
+void Record::dump() {
+	cout << ID() << " " << dumpLength();
+}
+
+int Record::dumpLength() {
+	return (sizeof(int) * 3) + strlen(title)+1 + strlen(datetime)+1;
+}
+
+void Record::ID(const unsigned int& i) {
+	IID = i;
+}
+
+char* charstar(void) {
 	char* final = new char[dumpLength()];
 	int offset = 0;
 	int length = records[i]->length();
@@ -66,13 +78,5 @@ char* Record::dump() {
 	offset += strlen(datetime)+1;
 
 	return final;
-}
-
-int Record::dumpLength() {
-	return (sizeof(int) * 3) + strlen(title)+1 + strlen(datetime)+1;
-}
-
-void Record::ID(const unsigned int& i) {
-	IID = i;
 }
 
