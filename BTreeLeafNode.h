@@ -20,6 +20,7 @@ class BTreeLeafNode : public BTreeNode<R>
     void setLeft(int theLeft);
     void setRight(int theRight);
     void print();
+    bool isLeaf();
     
     private:
     

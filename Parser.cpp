@@ -26,12 +26,14 @@ void Parser::parse()
         cout << "Command:" << name << endl;
         if(name == "dump")
         {
-            //dump();
+            dump();
         }
         else if (name == "delete")
         {
             cin >> ID;
-            //remove(ID);
+            Record* rec = new Record();
+            rec->ID(ID);
+            remove(rec);
             
         }
         else if(name == "insert")
@@ -44,7 +46,13 @@ void Parser::parse()
             cin >> date;
             cin >> length;
             cin >> cost;
-            //insert(ID, title, date, length, cost);
+            Record* rec = new Record();
+            rec->title(title);
+            rec->ID(ID);
+            rec->date(date);
+            rec->length(length);
+            rec->cost(cost);
+            insert(rec);
         }
         else if(name == "search")
         {
@@ -59,11 +67,11 @@ void Parser::parse()
             inn >> range;
             if(range == 4202315)
             {
-                //search(flag, ID);
+                search(flag, ID);
             }
             else
             {
-                //search(flag, ID, range);
+                search(flag, ID, range);
             }
         }
         else
@@ -73,15 +81,15 @@ void Parser::parse()
     }
 }
 
-/*
-void Parser::insert(int ID, string title, string date, int length, int cost)
+
+void Parser::insert(Record* record)
 {
-	tree.insert(ID, name);
+	//tree.insert(record);
 }
 
-void Parser::remove(int ID)
+void Parser::remove(Record* record)
 {
-	tree.release(ID);
+	//tree.remove(ID);
 }
 
 void Parser::dump()
@@ -91,11 +99,10 @@ void Parser::dump()
 
 void Parser::search(string flag, int ID, int range)
 {
-	tree.search
+	//tree.search(flag, ID, range);
 }
 
 void Parser::search(string flag, int ID)
 {
-    
+    //tree.search(flag, ID);
 }
-*/

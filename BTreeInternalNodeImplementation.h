@@ -16,6 +16,12 @@ BTreeInternalNode<R>::BTreeInternalNode()
 }
 
 template <typename R>
+bool BTreeInternalNode<R>::isLeaf()
+{
+    return false;
+}
+
+template <typename R>
 int* BTreeInternalNode<R>::pointer()
 {
     return pointers;

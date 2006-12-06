@@ -29,7 +29,7 @@ void BTree<R,C>::dumpHelper(BTreeNode<R>* root) {
 	root->print();
 	if (! root->isLeaf() ) {
 		//	do the children thing
-		int* child = root->pointer();
+		int* child = BTreeInternalNoderoot->pointer();
 		for (int i = 0; child[i] != -1; i++) {
 			dumpHelper(makeNode(child[i]));
 		}

@@ -14,6 +14,7 @@ class BTreeInternalNode : public BTreeNode<R>
     bool removeChild(int ID);
     void setBlockNum(int theBlock);
     void print();
+    bool isLeaf();
     
     
     private:
