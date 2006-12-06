@@ -40,7 +40,8 @@ int main(int argc, char* argv[])
 		std::cout << "Unknown Command. You need 2 arguments, file name and then the number of buffers used to store them." << std::endl;
 		return 1;
 	}
-	Parser bob(argv[0], atoi(argv[1]));
+	//Parser bob(argv[0], atoi(argv[1]));
+    Parser bob;
 	bob.parse();
 	return 0;
 }
