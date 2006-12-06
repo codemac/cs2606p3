@@ -24,7 +24,7 @@ bool MemoryManager::insert(int location, char* record)
 char* MemoryManager::get(int fileOffset)
 {
     char* description = new char[BLOCKSIZE];
-    buffer.read(description, fileOffset, BLOCKSIZE);
+    description = buffer.read(fileOffset, BLOCKSIZE);
     return description;
 }
 

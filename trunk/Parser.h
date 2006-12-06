@@ -1,11 +1,11 @@
-#ifndef STRINGDB_H_
-#define STRINGDB_H_
+#ifndef PARSER_H_
+#define PARSER_H_
 
 using namespace std;
 #include "MemoryManager.h"
 
 /**
- * Class StringDB
+ * Class Parser
  * 
  * This class takes an input, parses it, and calls resulting functions
  * to either insert a string into the file, print the string corresponding
@@ -15,7 +15,7 @@ using namespace std;
  * @author codemac @ braundui
  */
 
-class StringDB
+class Parser
 {
     public:
     /**
@@ -29,17 +29,17 @@ class StringDB
      * Constructor.  Takes in the file to write to and the number of buffers
      * to be stored in the file to pass down to the Memory Manager.
      */
-    StringDB(char* file, int buffernumber);
+    Parser(char* file, int buffernumber);
     
     /**
      * Default Constructor.
      */
-    StringDB();
+    Parser();
     
     /**
      * Destructor.
      */
-    ~StringDB();
+    ~Parser();
     
     private:
 	MemoryManager memory;
@@ -73,4 +73,4 @@ class StringDB
      */
     void print(int ID);
 };
-#endif //STRINGDB_H_
+#endif //PARSER_H_
