@@ -8,16 +8,16 @@ class BTreeInternalNode : public BTreeNode<R>
 {
     public: 
     BTreeInternalNode();
-	~BTreeInternalNode() {}
+	virtual ~BTreeInternalNode() {}
     int* pointer();
-    int blockNum();
+    virtual int blockNum();
     int* key();
     int childCount();
     void addChild(int key, int block);
     bool removeChild(int ID);
-    void setBlockNum(int theBlock);
-    void print();
-    bool isLeaf();
+    virtual void setBlockNum(int theBlock);
+    virtual void print();
+    virtual bool isLeaf();
     
     
     private:
