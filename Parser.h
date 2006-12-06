@@ -2,7 +2,9 @@
 #define PARSER_H_
 
 using namespace std;
-#include "MemoryManager.h"
+#include "BTree.h"
+#include "Record.h"
+#include "RecordComp.h"
 
 /**
  * Class Parser
@@ -27,7 +29,7 @@ class Parser
     
     /**
      * Constructor.  Takes in the file to write to and the number of buffers
-     * to be stored in the file to pass down to the Memory Manager.
+     * to be stored in the file to pass down to the B+ Tree.
      */
     Parser(char* file, int buffernumber);
     
@@ -42,15 +44,16 @@ class Parser
     ~Parser();
     
     private:
-	MemoryManager memory;
+	//BTree<Record, RecordComp> tree;
+    
     
     /**
-     * This method takes an ID and a string that have been parsed from input
-     * and calls the insert method in the MemoryManager class with those values
+     * This method takes an ID and fields that have been parsed from input
+     * and calls the insert method in the BTree class with those values
      * @param ID the ID of the string to be inserted.
      * @param name the string to be inserted into file.
      */
-    void insert(int ID, string name);
+    void insert(int ID, string title, string date, int length, int cost);
     
     /**
      * this method calls the dump method of the Memory Manager and prints out
@@ -71,6 +74,8 @@ class Parser
      * and ID and prints out the corresponding string for that ID.
      * @param ID the ID to print out.
      */
-    void print(int ID);
+    void search(string flag, int ID);
+    
+    void search(string flag, int ID, int range);
 };
 #endif //PARSER_H_
