@@ -36,7 +36,7 @@ void Parser::parse()
         }
         else if(name == "insert")
         {
-			string title, date, length, cost;
+			string title, date, length, cost= "";
 			
 			cin >> ID;
             cin >> title;
@@ -47,7 +47,16 @@ void Parser::parse()
         }
         else if(name == "search")
         {
+            string line, flag = "";
+            int range;
             
+            getline(cin, line);
+            istringstream inn(line);
+            
+            inn >> flag;
+            inn >> ID;
+            inn >> range;
+            cout << range;
         }
         else
         {
