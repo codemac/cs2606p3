@@ -4,17 +4,17 @@
 #include <iostream>
 using namespace std;
 
-template <typename Rec>
-class BTreeLeafNode : BTreeNode<Rec>
+template <typename R>
+class BTreeLeafNode : public BTreeNode<R>
 {
     public:
     BTreeLeafNode();
     int left();
     int right();
-    Rec** record();
+    R** record();
     int blockNum();
     int numRecords();
-    void addRecord(Rec* Record);
+    void addRecord(R* Record);
     bool removeRecord(int ID);
     void setBlockNum(int theBlock);
     void setLeft(int theLeft);
@@ -23,7 +23,7 @@ class BTreeLeafNode : BTreeNode<Rec>
     
     private:
     
-    Rec** records;
+    R** records;
     int leftNode;
     int rightNode;
     int blockNums;

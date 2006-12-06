@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-template <typename T>
-BTreeInternalNode::BTreeInternalNode()
+template <typename R>
+BTreeInternalNode<R>::BTreeInternalNode()
 {
     keys = new int[SIZE];
     pointers = new int[SIZE];
@@ -15,32 +15,32 @@ BTreeInternalNode::BTreeInternalNode()
     blockNums = -1;
 }
 
-template <typename T>
-int* BTreeInternalNode::pointer()
+template <typename R>
+int* BTreeInternalNode<R>::pointer()
 {
     return pointers;
 }
 
-template <typename T>
-int* BTreeInternalNode::key()
+template <typename R>
+int* BTreeInternalNode<R>::key()
 {
     return keys;
 }
 
-template <typename T>
-int BTreeInternalNode::blockNum()
+template <typename R>
+int BTreeInternalNode<R>::blockNum()
 {
     return blockNums;
 }
 
-template <typename T>
-int BTreeInternalNode::childCount()
+template <typename R>
+int BTreeInternalNode<R>::childCount()
 {
     return child;
 }
 
-template <typename T>
-void BTreeInternalNode::addChild(int theKey, int block)
+template <typename R>
+void BTreeInternalNode<R>::addChild(int theKey, int block)
 {
     int tempKey = theKey;
     int tempBlock = block;
@@ -68,8 +68,8 @@ void BTreeInternalNode::addChild(int theKey, int block)
     }
 }
 
-template <typename T>
-bool BTreeInternalNode::removeChild(int ID)
+template <typename R>
+bool BTreeInternalNode<R>::removeChild(int ID)
 {
     bool removed = false;
     for (int i = 0; i < SIZE; i++)
@@ -98,14 +98,14 @@ bool BTreeInternalNode::removeChild(int ID)
     return removed;
 }
 
-template <typename T>
-void BTreeInternalNode::setBlockNum(int theBlock)
+template <typename R>
+void BTreeInternalNode<R>::setBlockNum(int theBlock)
 {
     blockNums = theBlock;
 }
 
-template <typename T>
-void BTreeInternalNode::print()
+template <typename R>
+void BTreeInternalNode<R>::print()
 {
     cout << "Internal Node: Block " << blockNum() << " - " << childCount() << " children: ";
     for (int i = 0; i < SIZE; i++)

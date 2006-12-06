@@ -44,7 +44,7 @@ class Parser
     ~Parser();
     
     private:
-	//BTree<Record, RecordComp> tree;
+	BTree<Record, RecordComp> tree;
     
     
     /**
