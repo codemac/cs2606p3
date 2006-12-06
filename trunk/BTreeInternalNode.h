@@ -1,11 +1,14 @@
 #ifndef BTREEINTERNALNODE_H
 #define BTREEINTERNALNODE_H
 
+#include "BTreeNode.h"
+
 template <typename R>
 class BTreeInternalNode : public BTreeNode<R>
 {
     public: 
     BTreeInternalNode();
+	~BTreeInternalNode() {}
     int* pointer();
     int blockNum();
     int* key();

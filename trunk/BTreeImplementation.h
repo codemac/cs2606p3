@@ -28,8 +28,9 @@ void BTree<R,C>::dumpHelper(BTreeNode<R>* root) {
 
 	root->print();
 	if (! root->isLeaf() ) {
+		BTreeInternalNode<R>* r = dynamic_cast<BTreeInternalNode<R>*>(root);
 		//	do the children thing
-		int* child = BTreeInternalNoderoot->pointer();
+		int* child = r->pointer();
 		for (int i = 0; child[i] != -1; i++) {
 			dumpHelper(makeNode(child[i]));
 		}
@@ -165,13 +166,12 @@ BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
 	char* node = mm.get(fileOffset * BLOCKSIZE);
 	char isleaf[] = "n";
 	int offset = 0;
-	BTreeNode<R>* result;
 
 	memcpy(isleaf, node+offset, strlen(isleaf)+1);
 	offset += strlen(isleaf)+1;
 	
 	if ( isleaf == "y" ) {
-		result = new BTreeLeafNode<R>();
+		BTreeLeafNode<R>* result = new BTreeLeafNode<R>();
 		int next = 0;
 		memcpy(&next, node+offset, sizeof(int));
 		offset += sizeof(int);
@@ -211,9 +211,9 @@ BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
 
 			result->addRecord(nrec);
 		}
-		return result;
+		return dynamic_cast<BTreeNode<R>*>(result);
 	} else {
-		result = new BTreeInternalNode<R>();
+		BTreeInternalNode<R>* result = new BTreeInternalNode<R>();
 		int next = 0;
 		
 		memcpy(&next, node+offset, sizeof(int));
@@ -234,7 +234,7 @@ BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
 
 			result->addChild(key,pointer);
 		}
-		return result;
+		return dynamic_cast<BTreeNode<R>*>(result);
 	}
 	return 0;
 }

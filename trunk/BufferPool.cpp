@@ -3,10 +3,10 @@
 int BufferPool::write(char* towrite, int fileOffset, int length) {
     for( int i = 0; i < total && memory[i] != 0; i++) {
 		if (memory[i]->inRange(fileOffset)) {
-			int i = memory[i]->write(towrite, fileOffset, length);
+			int a = memory[i]->write(towrite, fileOffset, length);
 			stream.seekp(memory[i]->block());
 			stream.write(memory[i]->read(), BLOCKSIZE);
-            return i;
+            return a;
 		}
 	}
 	rotateCleanNew(fileOffset, length);
@@ -20,7 +20,6 @@ char* BufferPool::read(int fileOffset, int length) {
 	char* toread = new char[length];
 	for( int i = 0; i < total && memory[i] != 0; i++) {
 		if ( memory[i]->inRange(fileOffset)) {
-            cout << "OFFSET: " << fileOffset << " LENGTH: " << length << endl;
 			return memory[i]->read(fileOffset, length);
 		}
 	}
