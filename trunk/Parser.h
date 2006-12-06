@@ -53,7 +53,7 @@ class Parser
      * @param ID the ID of the string to be inserted.
      * @param name the string to be inserted into file.
      */
-    void insert(int ID, string title, string date, int length, int cost);
+    void insert(Record* record);
     
     /**
      * this method calls the dump method of the Memory Manager and prints out
@@ -67,7 +67,7 @@ class Parser
      * ID from the file.
      * @param ID the ID to remove.
      */
-    void remove(int ID);
+    void remove(Record* record);
     
     /**
      * This method calls the print method of the MemoryManager class.  It takes

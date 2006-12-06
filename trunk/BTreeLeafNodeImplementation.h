@@ -21,6 +21,12 @@ int BTreeLeafNode<R>::right()
 }
 
 template <typename R>
+bool BTreeLeafNode<R>::isLeaf()
+{
+    return true;
+}
+
+template <typename R>
 R** BTreeLeafNode<R>::record()
 {
     return records;

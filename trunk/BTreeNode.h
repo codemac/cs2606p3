@@ -21,6 +21,7 @@ class BTreeNode {
     virtual ~BTreeNode();
     virtual int blockNum() = 0;
     virtual void setBlockNum();
+    virtual bool isLeaf();
     virtual void print();
     
 };
