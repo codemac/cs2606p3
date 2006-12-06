@@ -1,7 +1,10 @@
 #ifndef BTREELEAFNODE_H
 #define BTREELEAFNODE_H
 
+
 #include <iostream>
+#include "BTreeNode.h"
+
 using namespace std;
 
 template <typename R>
@@ -9,6 +12,7 @@ class BTreeLeafNode : public BTreeNode<R>
 {
     public:
     BTreeLeafNode();
+	~BTreeLeafNode() {}
     int left();
     int right();
     R** record();

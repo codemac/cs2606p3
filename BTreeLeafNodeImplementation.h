@@ -52,7 +52,7 @@ void BTreeLeafNode<R>::addRecord(R* record)
         }
         else
         {
-            if(records[i]->getID() > tempRec->getID())
+            if(records[i]->ID() > tempRec->ID())
             {
                 R* storeRec = records[i];
                 records[i] = tempRec;
@@ -116,7 +116,7 @@ void BTreeLeafNode<R>::setRight(int theRight)
 template <typename R>
 void BTreeLeafNode<R>::print()
 {
-    cout << "Leaf Node: Block " << blockNum() << " - " << numRecs() << " records: ";
+    cout << "Leaf Node: Block " << blockNum() << " - " << numRecs << " records: ";
     for (int i = 0; i < SIZE; i++)
     {
         if (records[i] != 0)
