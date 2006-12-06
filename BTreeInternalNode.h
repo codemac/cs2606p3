@@ -1,8 +1,8 @@
 #ifndef BTREEINTERNALNODE_H
 #define BTREEINTERNALNODE_H
 
-template <typename T>
-class BTreeInternalNode : BTreeNode<T>
+template <typename R>
+class BTreeInternalNode : public BTreeNode<R>
 {
     public: 
     BTreeInternalNode();

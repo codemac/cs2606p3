@@ -1,5 +1,5 @@
-template <typename Rec>
-BTreeLeafNode::BTreeLeafNode()
+template <typename R>
+BTreeLeafNode<R>::BTreeLeafNode()
 {
     records[SIZE] = 0;
     leftNode = -1;
@@ -8,34 +8,34 @@ BTreeLeafNode::BTreeLeafNode()
     numRecs = 0;
 }
 
-template <typename Rec>
-int BTreeLeafNode::left()
+template <typename R>
+int BTreeLeafNode<R>::left()
 {
     return leftNode;
 }
 
-template <typename Rec>
-int BTreeLeafNode::right()
+template <typename R>
+int BTreeLeafNode<R>::right()
 {
     return rightNode;
 }
 
-template <typename Rec>
-Rec** BTreeLeafNode::record()
+template <typename R>
+R** BTreeLeafNode<R>::record()
 {
     return records;
 }
 
-template <typename Rec>
-int BTreeLeafNode::blockNum()
+template <typename R>
+int BTreeLeafNode<R>::blockNum()
 {
     return blockNums;
 }
 
-template <typename Rec>
-void BTreeLeafNode::addRecord(Rec* record)
+template <typename R>
+void BTreeLeafNode<R>::addRecord(R* record)
 {
-    Rec* tempRec = record;
+    R* tempRec = record;
     for (int i = 0; i < SIZE; i++)
     {
         if(records[i] == 0)
@@ -48,7 +48,7 @@ void BTreeLeafNode::addRecord(Rec* record)
         {
             if(records[i]->getID() > tempRec->getID())
             {
-                Rec* storeRec = records[i];
+                R* storeRec = records[i];
                 records[i] = tempRec;
                 tempRec = storeRec;
             }
@@ -56,8 +56,8 @@ void BTreeLeafNode::addRecord(Rec* record)
     }
 }
 
-template <typename Rec>
-bool BTreeLeafNode::removeRecord(int ID)
+template <typename R>
+bool BTreeLeafNode<R>::removeRecord(int ID)
 {
     bool removed = false;
     for (int i = 0; i < SIZE; i++)
@@ -75,7 +75,7 @@ bool BTreeLeafNode::removeRecord(int ID)
             if(records[i]->getID() == ID)
             {
                 records[i] = 0;
-                numRecs-1;
+                numRecs--;
                 removed = true;
             }
         }
@@ -83,32 +83,32 @@ bool BTreeLeafNode::removeRecord(int ID)
     return removed;
 }
 
-template <typename Rec>
-void BTreeLeafNode::numRecords()
+template <typename R>
+int BTreeLeafNode<R>::numRecords()
 {
     return numRecs;
 }
 
-template <typename Rec>
-void BTreeLeafNode::setBlockNum(int theBlock)
+template <typename R>
+void BTreeLeafNode<R>::setBlockNum(int theBlock)
 {
     blockNums = theBlock;
 }
 
-template <typename Rec>
-void BTreeLeafNode::setLeft(int theLeft)
+template <typename R>
+void BTreeLeafNode<R>::setLeft(int theLeft)
 {
     leftNode = theLeft;
 }
 
-template <typename Rec>
-void BTreeLeafNode::setRight(int theRight)
+template <typename R>
+void BTreeLeafNode<R>::setRight(int theRight)
 {
     rightNode = theRight;
 }
 
-template <typename Rec>
-void BTreeLeafNode::print()
+template <typename R>
+void BTreeLeafNode<R>::print()
 {
     cout << "Leaf Node: Block " << blockNum() << " - " << numRecs() << " records: ";
     for (int i = 0; i < SIZE; i++)

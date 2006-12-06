@@ -1,9 +1,11 @@
 #include "BTree.h"
 
+template <typename R, typename C>
 BTree<R,C>::BTree()
 {
 }
 
+template <typename R, typename C>
 BTree<R,C>::~BTree()
 {
 }
@@ -108,6 +110,7 @@ void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* reco
 
 template <typename R, typename C>
 bool BTree<R,C>::remove(R* record) {
+    return true;
 }
 
 template <typename R, typename C>
