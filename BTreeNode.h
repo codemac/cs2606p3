@@ -18,11 +18,11 @@ class BTreeNode {
 	
 	public:
     BTreeNode() {};
-    virtual ~BTreeNode();
+    virtual ~BTreeNode() {};
     virtual int blockNum() = 0;
-    virtual void setBlockNum();
-    virtual bool isLeaf();
-    virtual void print();
+    virtual void setBlockNum(int) = 0;
+    virtual bool isLeaf() = 0;
+    virtual void print() = 0;
     
 };
 #endif

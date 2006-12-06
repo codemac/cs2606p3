@@ -12,19 +12,19 @@ class BTreeLeafNode : public BTreeNode<R>
 {
     public:
     BTreeLeafNode();
-	~BTreeLeafNode() {}
+	virtual ~BTreeLeafNode() {}
     int left();
     int right();
     R** record();
-    int blockNum();
+    virtual int blockNum();
     int numRecords();
     void addRecord(R* Record);
     bool removeRecord(int ID);
-    void setBlockNum(int theBlock);
+    virtual void setBlockNum(int theBlock);
     void setLeft(int theLeft);
     void setRight(int theRight);
-    void print();
-    bool isLeaf();
+    virtual void print();
+    virtual bool isLeaf();
     
     private:
     
