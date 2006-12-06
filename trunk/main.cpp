@@ -37,7 +37,7 @@
 int main(int argc, char* argv[])
 {
 	if( argc != 3 ) {
-		std::cout << "You need 2 arguments, file name and then the number of buffers used to store them.  You fail." << std::endl;
+		std::cout << "Unknown Command. You need 2 arguments, file name and then the number of buffers used to store them." << std::endl;
 		return 1;
 	}
 	StringDB bob(argv[0], atoi(argv[1]));
