@@ -1,6 +1,7 @@
 #ifndef RECORD_H
 #define RECORD_H
 
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -29,7 +30,7 @@ class Record {
 		int length();
 		void length(const unsigned int& l);
 
-		char* dump();
+		void dump();
 		int dumpLength();
 
 		int cost();
@@ -37,5 +38,7 @@ class Record {
 
 		int ID();
 		void ID(const unsigned int& i);
+
+		char* charstar();
 };
 #endif
