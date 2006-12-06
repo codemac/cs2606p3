@@ -16,17 +16,16 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
     return i;
 }
 
-bool BufferPool::read(char* toread, int fileOffset, int length) {
+char* BufferPool::read(int fileOffset, int length) {
+	char* toread = new char[length];
 	for( int i = 0; i < total && memory[i] != 0; i++) {
 		if ( memory[i]->inRange(fileOffset)) {
             cout << "OFFSET: " << fileOffset << " LENGTH: " << length << endl;
-			memcpy(toread, memory[i]->read(fileOffset, length), length);
-			return true;
+			return memory[i]->read(fileOffset, length);
 		}
 	}
 	rotateCleanNew(fileOffset, length);
-	memcpy(toread, memory[0]->read(fileOffset, length), length);
-	return true;
+	return memory[0]->read(fileOffset, length);
 }
 
 void BufferPool::rotateCleanNew(int offset, int length) {
