@@ -64,6 +64,7 @@ BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* root) {
 		}
 		for ( int i = 0; i < root->childCount(); i++ ) {
 			findParent(node, makeNode(pointer[i]));
+		}
 	} else {
 			return 0;
 	}
@@ -247,7 +248,7 @@ char* BTree<R,C>::charstar(BTreeNode<R>* node) {
 		R** records = node->record();
 
 		for( int i = 0; i < numrecord; i++ ) {
-			memcpy(final+offset, records[i]->dump(), records[i]->dumpLength());
+			memcpy(final+offset, records[i]->charstar(), records[i]->dumpLength());
 		}
 		
 		return final;
