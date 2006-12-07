@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const static int BLOCKSIZE = 512;
+const static unsigned int BLOCKSIZE = 512;
 
 template <typename R, typename C>
 class BTree {

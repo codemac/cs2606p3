@@ -125,4 +125,5 @@ void BTreeLeafNode<R>::print()
             cout << ", ";
         }
     }
+    cout << endl;
 }
