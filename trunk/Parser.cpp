@@ -94,7 +94,7 @@ void Parser::remove(Record* record)
 
 void Parser::dump()
 {
-	tree.dump();
+	//tree.dump();
 }
 
 void Parser::search(string flag, int ID, int range)

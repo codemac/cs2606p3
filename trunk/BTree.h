@@ -16,9 +16,15 @@ const static int BLOCKSIZE = 512;
 template <typename R, typename C>
 class BTree {
 	private:
-		BTreeNode<R>* root;				///	 root node of btree
-		C compare;
-		MemoryManager mm;
+		BTreeNode<R>* root;				//	 root node of btree
+		C compare;                      //   comparator object
+		MemoryManager mm;               //   Memory Manager object
+        
+        /**
+         * This method is a recursive helper method used by dump to go
+         * through the tree and dump the resulting nodes and records.
+         * @param root the root to start the dump
+         */
 		void dumpHelper(BTreeNode<R>* root);
 		BTreeNode<R>* findNode(bool debug, R* record, BTreeNode<R>* root);
 		BTreeNode<R>* findParent(BTreeNode<R>* node, BTreeNode<R>* root);
