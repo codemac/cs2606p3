@@ -120,14 +120,14 @@ void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* reco
 					  compare.equal(records[i], record2) ) )
             {
 				records[i]->dump();
-				cout<<endl;
+				cout << endl;
             }
 			else
             {
 				i = -1;
             }
 		}
-		if (i != -1) {
+		if (i != -1 && nod->right() != -1) {
 			printSearch(debug, makeNode(nod->right()), record1, record2);
 		}
 	}
