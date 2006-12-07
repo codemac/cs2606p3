@@ -116,9 +116,13 @@ void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* reco
 			if ( compare.equal(records[i], record1) ||
 					( compare.lt(records[i], record2) ||
 					  compare.equal(records[i], record2) ) )
+            {
 				records[i]->dump();
+            }
 			else
+            {
 				i = -1;
+            }
 		}
 		if (i != -1) {
 			printSearch(debug, makeNode(nod->right()), record1, record2);
