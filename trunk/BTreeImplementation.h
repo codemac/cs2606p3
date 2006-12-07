@@ -141,17 +141,22 @@ bool BTree<R,C>::insert(R* record) {
         }
 		BTreeLeafNode<R>* node = dynamic_cast<BTreeLeafNode<R>*>(findNode(false, record, root));
         R** rec = dynamic_cast<BTreeLeafNode<R>*>(node)->record();
-            for(int i = 0; i < dynamic_cast<BTreeLeafNode<R>*>(node)->numRecords(); i++)
+        bool successful = true;
+        for(int i = 0; i < dynamic_cast<BTreeLeafNode<R>*>(node)->numRecords(); i++)
+        {
+            if(rec[i]->ID() == record->ID())
             {
-                if(rec[i]->ID() == record->ID())
-                {
-                    cout << "Insert Failed: Duplicate Found" << endl;
-                }
-                else
-                {
-                    cout << "Insert Successful" << endl;
-                }
+                successful = false;
             }
+        }
+        if(successful)
+        {
+            cout << "Insert Successful" << endl;
+        }
+        else
+        {
+            cout << "Insert Failed: Duplicate Found" << endl;
+        }
         node->addRecord(record);
 
 		char* nodedata = charstar(node);
