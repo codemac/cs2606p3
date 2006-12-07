@@ -16,9 +16,9 @@ const static int BLOCKSIZE = 512;
 template <typename R, typename C>
 class BTree {
 	private:
-		BTreeNode<R>* root;				//	 root node of btree
-		C compare;                      //   comparator object
-		MemoryManager mm;               //   Memory Manager object
+		BTreeNode<R>* root;				//!<	root node of btree
+		C compare;                      //!<	comparator object
+		MemoryManager mm;               //!<	Memory Manager object
         
         /**
          * This method is a recursive helper method used by dump to go

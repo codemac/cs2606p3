@@ -38,7 +38,7 @@ class RecordComp {
  * @param obj the record to get the discriminate from
  * @return the ID of the record
  */
-		unsigned int* getDiscrim(Record* obj);
+		int getDiscrim(Record* obj);
 /**
  * Logically a == operation on the records' ID variables
  * @param lhs the left hand side of the equation

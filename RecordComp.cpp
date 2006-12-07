@@ -8,7 +8,7 @@ bool RecordComp::lt(Record* lhs, unsigned int rhs) {
 	return lhs->ID() < rhs;
 }
 
-unsigned int* RecordComp::getDiscrim(Record* obj)
+int RecordComp::getDiscrim(Record* obj)
 {
 	return new unsigned int(obj->ID());	
 }

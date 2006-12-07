@@ -54,8 +54,8 @@ BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, BTreeNode<R>* root) {
 		if ( root->isLeaf() ) {
 			return root;
 		} else if ( record ) {
-			int* key = root->key();
-			int* pointer = root->pointer();
+			int* key = dynamic_cast<BTreeInternalNode<R>*>(root)->key();
+			int* pointer = dynamic_cast<BTreeInternalNode<R>*>(root)->pointer();
 
 			for ( int i = 0; key[i] != -1; i++) {
 				if ( key[i] > compare.getDiscrim(record) )
@@ -71,8 +71,9 @@ BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, BTreeNode<R>* root) {
 }
 
 template <typename R, typename C>
-BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* root) {
-	if ( !root->isLeaf() ) {
+BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* rot) {
+	if ( !rot->isLeaf() ) {
+		BTreeInternalNode<R>* root = dynamic_cast<BTreeInternalNode<R>*>(rot);
 		int* key = root->key();
 		int* pointer = root->pointer();
 		for ( int i = 0; i < root->childCount(); i++ ) {
@@ -117,13 +118,13 @@ bool BTree<R,C>::remove(R* record) {
 template <typename R, typename C>
 bool BTree<R,C>::insert(R* record) {
 	if ( record ) {
-		BTreeNode<R>* node = findNode(false, record, root);
+		BTreeLeafNode<R>* node = dynamic_cast<BTreeLeafNode<R>*>(findNode(false, record, root));
 		node->addRecord(record);
 		char* nodedata = charstar(node);
 		
 		if ( strlen(nodedata) > BLOCKSIZE ) {
-			if ( node->removeRecord(record) ) {
-				R* records[node->numRecords()] = node->record();
+			if ( node->removeRecord(compare.getDiscrim(record)) ) {
+				R** records = node->record();
 				
 				int half = node->numRecords() / 2;
 
@@ -134,8 +135,8 @@ bool BTree<R,C>::insert(R* record) {
 				for ( int i = 0; i < (node->numRecords() - half); i++ )
 					node->removeRecord(compare.getDiscrim(records[i + half]));
 
-				BTreeNode<R>* newnode = newNode(secondRecords, half, node);
-				BTreeNode<R>* parent = findParent(newnode);
+				BTreeNode<R>* newnode = newLeaf(secondRecords, half, node);
+				BTreeNode<R>* parent = findParent(newnode, root);
 
 			} else {
 				return false;
@@ -150,16 +151,16 @@ bool BTree<R,C>::insert(R* record) {
 
 template <typename R, typename C>
 BTreeNode<R>* BTree<R,C>::newLeaf(R** records,int length,  BTreeNode<R>* node) {
-	BTreeNode<R>* newnode = new BTreeLeafNode<R>();
+	BTreeLeafNode<R>* newnode = new BTreeLeafNode<R>();
 	for( int i = 0; i < length; i++ )
 		newnode->addRecord(records[i]);
-	newnode->setRight(node->right());
+	newnode->setRight(dynamic_cast<BTreeLeafNode<R>*>(node)->right());
 	newnode->setLeft(node->blockNum());
-	node->setRight(newnode->blockNum());
+	dynamic_cast<BTreeLeafNode<R>*>(node)->setRight(newnode->blockNum());
 
 	newnode->setBlockNum(mm.freeList() / BLOCKSIZE);
 	mm.insert(newnode->blockNum()*BLOCKSIZE,charstar(newnode));
-	return newnode;
+	return dynamic_cast<BTreeNode<R>*>(newnode);
 }
 
 template <typename R, typename C>
@@ -241,10 +242,11 @@ BTreeNode<R>* BTree<R,C>::makeNode( int fileOffset ) {
 }
 
 template <typename R, typename C>
-char* BTree<R,C>::charstar(BTreeNode<R>* node) {
+char* BTree<R,C>::charstar(BTreeNode<R>* nod) {
 	char* final = new char[512];
 	memset(final, ' ', 512);
-	if ( node->isLeaf() ) {
+	if ( nod->isLeaf() ) {
+		BTreeLeafNode<R>* node = dynamic_cast<BTreeLeafNode<R>*>(nod);
 		char isleaf[] = "y";
 		int lefty = node->left();
 		int righty = node->right();
@@ -271,6 +273,7 @@ char* BTree<R,C>::charstar(BTreeNode<R>* node) {
 		
 		return final;
 	} else {
+		BTreeInternalNode<R>* node = dynamic_cast<BTreeInternalNode<R>*>(nod);
 		int offset = 0;
 		char isleaf[] = "n";
 		int block = node->blockNum();
