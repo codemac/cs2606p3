@@ -78,7 +78,7 @@ bool BTreeLeafNode<R>::removeRecord(int ID)
         }
         else if(records[i] != 0)
         {
-            if(records[i]->getID() == ID)
+            if(records[i]->ID() == ID)
             {
                 records[i] = 0;
                 numRecs--;
