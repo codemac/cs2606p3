@@ -19,7 +19,7 @@ void Parser::parse()
 	string name;
     int ID;
     cout << "Start commands" << endl;
-    while(cin)
+    while(cin.good())
     {
         cin >> name;
         cout << "Command:" << name << endl;
