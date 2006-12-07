@@ -1,7 +1,11 @@
 template <typename R>
 BTreeLeafNode<R>::BTreeLeafNode()
 {
-    records[SIZE] = 0;
+    records = new R*[SIZE];
+    for(int i = 0; i < SIZE; i++)
+    {
+        records[i] = 0;
+    }
     leftNode = -1;
     rightNode = -1;
     blockNums = -1;
