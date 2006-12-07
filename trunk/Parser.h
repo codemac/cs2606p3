@@ -48,7 +48,6 @@ class Parser
     
 	BTree<Record, RecordComp> tree;  //the B+ tree that stores the records.
     
-    
     /**
      * This method takes a record that has been parsed from input
      * and calls the insert method in the BTree class with that record

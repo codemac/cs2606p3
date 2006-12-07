@@ -125,4 +125,5 @@ void BTreeInternalNode<R>::print()
             return;
         }
     }
+    cout << endl;
 }

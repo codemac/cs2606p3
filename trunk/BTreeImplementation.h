@@ -52,6 +52,16 @@ BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, BTreeNode<R>* root) {
 	if ( root ) {
 		if ( debug ) root->print();
 		if ( root->isLeaf() ) {
+            R** rec = dynamic_cast<BTreeLeafNode<R>*>(root)->record();
+            for(int i = 0; i < dynamic_cast<BTreeLeafNode<R>*>(root)->numRecords(); i++)
+            {
+                if(rec[i]->ID() == record->ID())
+                {
+                    cout << "Insert Failed: Duplicate Found" << endl;
+                    return NULL;
+                }
+            }
+            cout << "Insert Successful" << endl;
 			return root;
 		} else if ( record ) {
 			int* key = dynamic_cast<BTreeInternalNode<R>*>(root)->key();
@@ -85,6 +95,7 @@ BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* rot) {
 	} else {
 			return 0;
 	}
+    return 0;
 }
 
 

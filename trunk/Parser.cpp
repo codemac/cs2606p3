@@ -7,7 +7,6 @@ Parser::Parser(char* a, int b)
 
 Parser::Parser()
 {
-    
 }
 
 Parser::~Parser()
@@ -95,6 +94,7 @@ void Parser::remove(Record* record)
 void Parser::dump()
 {
 	tree.dump();
+    cout << "Dump Completed" << endl;
 }
 
 void Parser::search(string flag, int ID, int range)
@@ -109,6 +109,7 @@ void Parser::search(string flag, int ID, int range)
     Record* high = new Record();
     high->ID(range);
 	tree.search(flagged, low, high);
+    cout << "Search Completed" << endl;
 }
 
 void Parser::search(string flag, int ID)
@@ -121,4 +122,5 @@ void Parser::search(string flag, int ID)
     Record* low = new Record();
     low->ID(ID);
     tree.search(flagged, low);
+    cout << "Search Completed" << endl;
 }
