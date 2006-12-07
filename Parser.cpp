@@ -84,25 +84,25 @@ void Parser::parse()
 
 void Parser::insert(Record* record)
 {
-	//tree.insert(record);
+	tree.insert(record);
 }
 
 void Parser::remove(Record* record)
 {
-	//tree.remove(ID);
+	tree.remove(ID);
 }
 
 void Parser::dump()
 {
-	//tree.dump();
+	tree.dump();
 }
 
 void Parser::search(string flag, int ID, int range)
 {
-	//tree.search(flag, ID, range);
+	tree.search(flag, ID, range);
 }
 
 void Parser::search(string flag, int ID)
 {
-    //tree.search(flag, ID);
+    tree.search(flag, ID);
 }
