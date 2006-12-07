@@ -80,3 +80,8 @@ char* Record::charstar(void) {
 	return final;
 }
 
+void Record::print()
+{
+    cout << "ID: " << ID() << " Title: " << title() << " Date: " << date() << " Length: " << length() << " Cost: " << cost() << endl;
+}
+
