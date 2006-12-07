@@ -10,9 +10,8 @@ using namespace std;
  * Class Parser
  * 
  * This class takes an input, parses it, and calls resulting functions
- * to either insert a string into the file, print the string corresponding
- * to an ID in the file, dump the freeList stored in the MemoryManager class
- * or remove the string from the file that corresponds to an ID.
+ * to either insert a record into the BTree, dump the contents of the BTree,
+ * search for records in the BTree, or delete records from the BTree.
  * 
  * @author codemac @ braundui
  */
@@ -44,38 +43,47 @@ class Parser
     ~Parser();
     
     private:
-	BTree<Record, RecordComp> tree;
+    
+	BTree<Record, RecordComp> tree;  //the B+ tree that stores the records.
     
     
     /**
-     * This method takes an ID and fields that have been parsed from input
-     * and calls the insert method in the BTree class with those values
-     * @param ID the ID of the string to be inserted.
-     * @param name the string to be inserted into file.
+     * This method takes a record that has been parsed from input
+     * and calls the insert method in the BTree class with that record
+     * @param record the record to be inserted into the tree.
      */
     void insert(Record* record);
     
     /**
-     * this method calls the dump method of the Memory Manager and prints out
-     * a list of the blocks in the freeList.
+     * this method calls the dump method of the BTree, which prints out a 
+     * list of nodes and records in the tree.
      */
     void dump();
     
     /**
-     * This method calls the release method of the Memory Manager class.  It
-     * takes an ID and removes the resulting string that corresponds to that
-     * ID from the file.
-     * @param ID the ID to remove.
+     * This method calls the remove method of the B+ Tree and is used to 
+     * delete a record out of the tree.
+     * @param record the record to remove from the tree.
      */
     void remove(Record* record);
     
     /**
-     * This method calls the print method of the MemoryManager class.  It takes
-     * and ID and prints out the corresponding string for that ID.
-     * @param ID the ID to print out.
+     * This method calls the search method of the B+ Tree.  It is used to
+     * search through the tree to try and find a record with the same ID
+     * as the parameter.
+     * @param flag a flag used in the B+ tree to determine what to print.
+     * @param ID the ID to search for.
      */
     void search(string flag, int ID);
     
+    /**
+     * This method calls the search method of the B+ Tree.  It is used to
+     * search through the tree to try and find a list of records within
+     * the range of the ID and range parameters.
+     * @param flag a flag used in the B+ tree to determine what to print.
+     * @param ID the first ID of the search rangeS
+     * @param range the second ID of the search range
+     */
     void search(string flag, int ID, int range);
 };
 #endif //PARSER_H_
