@@ -81,6 +81,11 @@ class Record {
 		void dump();
         
         /**
+         * This method prints out all the fields of the record.
+         */
+        void print();
+        
+        /**
          * This method is used to return the length of the char* holding all
          * the fields of the record to be used in the dump method
          * @return int the length
