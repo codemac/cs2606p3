@@ -64,7 +64,7 @@ void Parser::parse()
             
             inn >> flag;
             inn >> ID;
-			if ( inn.eof() || inn.bad() )
+			if ( inn.eof() || !inn.good() )
             {
                 search(flag, ID);
             }

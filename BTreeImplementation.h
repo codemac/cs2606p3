@@ -108,6 +108,8 @@ template <typename R, typename C>
 void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* record2) {
 	if ( debug ) node->print();
 
+	if ( ! node->isLeaf() ) return;
+
 	if ( record2 ) {
 		BTreeLeafNode<R>* nod = dynamic_cast<BTreeLeafNode<R>*>(node);
 		R** records = nod->record();
@@ -118,6 +120,7 @@ void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* reco
 					  compare.equal(records[i], record2) ) )
             {
 				records[i]->dump();
+				cout<<endl;
             }
 			else
             {
