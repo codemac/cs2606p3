@@ -159,6 +159,7 @@ BTreeNode<R>* BTree<R,C>::newLeaf(R** records,int length,  BTreeNode<R>* node) {
 
 	newnode->setBlockNum(mm.freeList() / BLOCKSIZE);
 	mm.insert(newnode->blockNum()*BLOCKSIZE,charstar(newnode));
+	return newnode;
 }
 
 template <typename R, typename C>
