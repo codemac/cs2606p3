@@ -17,7 +17,6 @@ int BufferPool::write(char* towrite, int fileOffset, int length) {
 }
 
 char* BufferPool::read(int fileOffset, int length) {
-	char* toread = new char[length];
 	for( int i = 0; i < total && memory[i] != 0; i++) {
 		if ( memory[i]->inRange(fileOffset)) {
 			return memory[i]->read(fileOffset, length);
