@@ -19,8 +19,9 @@ void Parser::parse()
 	string name;
     int ID;
     cout << "Start commands" << endl;
-    while(cin.good())
+    while(!(cin.good() && cin.eof()))
     {
+		name = "";
         cin >> name;
         cout << "Command:" << name << endl;
         if(name == "dump")
@@ -63,13 +64,13 @@ void Parser::parse()
             
             inn >> flag;
             inn >> ID;
-            inn >> range;
-            if(range == 4202315)
+			if ( inn.eof() || inn.bad() )
             {
                 search(flag, ID);
             }
             else
             {
+				inn >> range;
                 search(flag, ID, range);
             }
         }
