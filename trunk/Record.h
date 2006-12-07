@@ -1,6 +1,16 @@
 #ifndef RECORD_H
 #define RECORD_H
 
+/**
+ * This class is used to store the information of an individual record
+ * to be inserted into a B+ Tree.  This class contains information such as the
+ * ID, Title, Date, Length, and Cost of a seminar.  Finally, the record class
+ * provides a dump command to print useful information to cout to be used in
+ * debugging as well as a charstar method to create a char* containing the
+ * fields of the record so that it can be stored in file.
+ * 
+ */
+
 #include <iostream>
 #include <string>
 
@@ -37,7 +47,7 @@ class Record {
          * This method is used to set the title field for the record.
          * @param t the title to set.
          */
-		void title(const string& t);
+		void title(const string& titles);
 
         /**
          * This method returns the date field for the record.
@@ -49,7 +59,7 @@ class Record {
          * This method is used to set the date field for the record
          * @param d the date to set.
          */
-		void date(const string& d);
+		void date(const string& dates);
 
         /**
          * This method returns the length field for the record.
@@ -61,7 +71,7 @@ class Record {
          * This method is used to set the length field for the record
          * @param l the length to set.
          */
-		void length(const unsigned int& l);
+		void length(const unsigned int& lengths);
 
         /**
          * This method is used to print to cout the ID field for this record
@@ -87,7 +97,7 @@ class Record {
          * This method is used to set the cost field of the record
          * @param c the cost to set.
          */
-		void cost(const unsigned int& c);
+		void cost(const unsigned int& costs);
 
         /**
          * This method returns the ID field of the record
@@ -99,7 +109,7 @@ class Record {
          * This method sets the ID field of the record
          * @param i the ID to set
          */
-		void ID(const unsigned int& i);
+		void ID(const unsigned int& IDs);
 
         /**
          * This method makes a char* of the fields of the record to be used

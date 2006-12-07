@@ -15,6 +15,7 @@
  * 
  * @author codemac @ braundui
  * @version 11/02/06
+ * @edited 12/06/06 braundui @ codemac
  */
 
 #include "BufferPool.h" 

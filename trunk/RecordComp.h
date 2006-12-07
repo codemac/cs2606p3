@@ -1,6 +1,16 @@
 #ifndef RECORDCOMP_H
 #define RECORDCOMP_H
 
+/**
+ * This is a comparator class used to compare ID variables in a record class.
+ * This class is used in the B+ tree to make useful comparisons between various
+ * records stored in leaf nodes.
+ * 
+ * @author braundui @ codemac
+ * 
+ * @version December 6th, 2006
+ */
+
 #include <iostream>
 #include "BTreeNode.h"
 #include "Record.h"
