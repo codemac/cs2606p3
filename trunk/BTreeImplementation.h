@@ -61,20 +61,19 @@ BTreeNode<R>* BTree<R,C>::findNode(bool debug, R* record, BTreeNode<R>* root) {
 				if ( key[i] > compare.getDiscrim(record) )
 					findNode(debug,record,makeNode(pointer[i-1]));
 			}
-
 		} else {
 			return 0;
 		}
 	} else {
 		return 0;
 	}
+	return 0;
 }
 
 template <typename R, typename C>
 BTreeNode<R>* BTree<R,C>::findParent(BTreeNode<R>* node, BTreeNode<R>* rot) {
 	if ( !rot->isLeaf() ) {
 		BTreeInternalNode<R>* root = dynamic_cast<BTreeInternalNode<R>*>(rot);
-		int* key = root->key();
 		int* pointer = root->pointer();
 		for ( int i = 0; i < root->childCount(); i++ ) {
 			if ( pointer[i] == node->blockNum() )
@@ -94,18 +93,19 @@ void BTree<R,C>::printSearch(bool debug, BTreeNode<R>* node, R* record1, R* reco
 	if ( debug ) node->print();
 
 	if ( record2 ) {
-		R* records[node->numRecords()] = node->record();
+		BTreeLeafNode<R>* nod = dynamic_cast<BTreeLeafNode<R>*>(node);
+		R** records = nod->record();
 		int i = 0;
-		for ( i = 0; i < node->numRecords() && i != -1; i++ ) {
+		for ( i = 0; i < nod->numRecords() && i != -1; i++ ) {
 			if ( compare.equal(records[i], record1) ||
 					( compare.lt(records[i], record2) ||
 					  compare.equal(records[i], record2) ) )
-				records[i]->print();
+				records[i]->dump();
 			else
 				i = -1;
 		}
 		if (i != -1) {
-			printSearch(debug, makeNode(node->right()), record1, record2);
+			printSearch(debug, makeNode(nod->right()), record1, record2);
 		}
 	}
 }
@@ -137,7 +137,6 @@ bool BTree<R,C>::insert(R* record) {
 
 				BTreeNode<R>* newnode = newLeaf(secondRecords, half, node);
 				BTreeNode<R>* parent = findParent(newnode, root);
-
 			} else {
 				return false;
 			}
@@ -147,6 +146,7 @@ bool BTree<R,C>::insert(R* record) {
 	} else {
 		return false;
 	}
+	return false;
 }
 
 template <typename R, typename C>

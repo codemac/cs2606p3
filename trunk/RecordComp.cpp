@@ -10,7 +10,7 @@ bool RecordComp::lt(Record* lhs, unsigned int rhs) {
 
 int RecordComp::getDiscrim(Record* obj)
 {
-	return new unsigned int(obj->ID());	
+	return obj->ID();	
 }
 
 bool RecordComp::equal(Record* lhs, Record* rhs) {
