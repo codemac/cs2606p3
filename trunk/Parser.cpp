@@ -89,7 +89,7 @@ void Parser::insert(Record* record)
 
 void Parser::remove(Record* record)
 {
-	tree.remove(ID);
+	tree.remove(record);
 }
 
 void Parser::dump()
@@ -99,10 +99,26 @@ void Parser::dump()
 
 void Parser::search(string flag, int ID, int range)
 {
-	tree.search(flag, ID, range);
+    bool flagged = false;
+    if (flag == "+")
+    {
+        flagged = true;
+    }
+    Record* low = new Record();
+    low->ID(ID);
+    Record* high = new Record();
+    high->ID(range);
+	tree.search(flagged, low, high);
 }
 
 void Parser::search(string flag, int ID)
 {
-    tree.search(flag, ID);
+    bool flagged = false;
+    if (flag == "+")
+    {
+        flagged = true;
+    }
+    Record* low = new Record();
+    low->ID(ID);
+    tree.search(flagged, low);
 }
