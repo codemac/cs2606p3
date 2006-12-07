@@ -36,7 +36,7 @@ class BTreeNode {
      * This method is used to set the block number of a node
      * @param int the block number to set.
      */
-    virtual void setBlockNum(int) = 0;
+    virtual void setBlockNum(int theBlock) = 0;
     
     /**
      * This method is used to determine whether or not a node is a leaf

@@ -84,7 +84,15 @@ void Parser::parse()
 
 void Parser::insert(Record* record)
 {
-	tree.insert(record);
+	bool successful = tree.insert(record);
+    if (successful)
+    {
+        cout << "Insert Successful" << endl;
+    }
+    else
+    {
+        cout << "Insert Failed: Duplicate Found" << endl;
+    }
 }
 
 void Parser::remove(Record* record)

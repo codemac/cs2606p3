@@ -138,24 +138,17 @@ bool BTree<R,C>::insert(R* record) {
         if (root == NULL)
         {
             root = new BTreeLeafNode<R>();
+            int blockNum = mm.freeList();
+            dynamic_cast<BTreeLeafNode<R>*>(root)->setBlockNum(blockNum);
         }
 		BTreeLeafNode<R>* node = dynamic_cast<BTreeLeafNode<R>*>(findNode(false, record, root));
         R** rec = dynamic_cast<BTreeLeafNode<R>*>(node)->record();
-        bool successful = true;
         for(int i = 0; i < dynamic_cast<BTreeLeafNode<R>*>(node)->numRecords(); i++)
         {
             if(rec[i]->ID() == record->ID())
             {
-                successful = false;
+                return false;
             }
-        }
-        if(successful)
-        {
-            cout << "Insert Successful" << endl;
-        }
-        else
-        {
-            cout << "Insert Failed: Duplicate Found" << endl;
         }
         node->addRecord(record);
 
